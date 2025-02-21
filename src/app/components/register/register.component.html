@@ -1,0 +1,105 @@
+<div class="container my-5 main align-content-center">
+  <div class="row justify-content-center align-content-center gap-4">
+    <div class="col-5 registerContiner rounded-4">
+      <img src="assets/smiling-student-holding-folder.png" alt="" class="registerImg" />
+    </div>
+    <div class="col-6 rounded-5 loginform  p-4 py-5 align-self-center registrationForm">
+      <div class="text-center p-2">
+        <h1 class="fs-3 fw-bold">Register Yourself</h1>
+        <p class="">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laborum
+          quod animi blanditiis obcaecati
+        </p>
+        <form action="" [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text icons" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+              <input [class.is-invalid]="userName?.invalid && userName?.touched" formControlName="userName" type="text"
+                class="form-control" placeholder="User Name" aria-label="Email" aria-describedby="basic-addon1" />
+            </div>
+            <div *ngIf="userName?.invalid && userName?.touched">
+              <div class="text-danger text-start errorMessage" *ngIf="userName?.errors?.['required']">
+                User name is required
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="userName?.errors?.['minlength']">
+                User name must be minimum 3 letters
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text icons" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+              <input [class.is-invalid]="email?.invalid && email?.touched" formControlName="email" type="email"
+                class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" />
+            </div>
+            <div *ngIf="email?.invalid && email?.touched">
+              <div class="text-danger text-start errorMessage" *ngIf="email?.errors?.['required']">
+                Email is required
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="email?.errors?.['email']">
+                Email must be in this form {{temprary}}
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text icons" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+              <input [class.is-invalid]="password?.invalid && password?.touched" formControlName="password"
+                [type]="passwordView? 'text':'password'" class=" form-control" placeholder="Password"
+                aria-label="Password" aria-describedby="basic-addon1" />
+              <span class="input-group-text icons cursor" id="basic-addon1" (click)="viewPassword()">
+                <i class="fa-solid fa-eye-slash" *ngIf="!passwordView"></i>
+                <i class="fa-solid fa-eye" *ngIf="passwordView"></i>
+              </span>
+            </div>
+            <div *ngIf="password?.invalid && password?.touched">
+              <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['required']">
+                Password is required
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['minlength']">
+                Password must be miimum 8 letters
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['maxlength']">
+                Password must be maximum 20 letters
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text icons" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+              <input [class.is-invalid]="
+                  confirmPassword?.invalid && confirmPassword?.touched
+                " formControlName="confirmPassword" [type]="confirmPasswordView? 'text':'password'"
+                class="form-control" placeholder="Confirm Password" aria-label="Password"
+                aria-describedby="basic-addon1" />
+              <span class="input-group-text icons" id="basic-addon1" (click)="viewConfirmPassword()">
+                <i class="fa-solid fa-eye-slash" *ngIf="!confirmPasswordView"></i>
+                <i class="fa-solid fa-eye" *ngIf="confirmPasswordView"></i>
+              </span>
+            </div>
+            <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+              <div class="text-danger text-start errorMessage" *ngIf="confirmPassword?.errors?.['required']">
+                Confirm password is required
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="confirmPassword?.errors?.['minlength']">
+                Confirm password must be miimum 8 letters
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="confirmPassword?.errors?.['maxlength']">
+                Confirm password must be maximum 20 letters
+              </div>
+              <div class="text-danger text-start errorMessage" *ngIf="confirmPassword?.errors?.['misMatch']">
+                Confirm password must be matched
+              </div>
+            </div>
+          </div>
+          <div class="my-5">
+            <button class="btn btn-primary w-100" type="submit" [disabled]="registrationForm.invalid"
+              [class.btn-secondary]='registrationForm.invalid'>
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

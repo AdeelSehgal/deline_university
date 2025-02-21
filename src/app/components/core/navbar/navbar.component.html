@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <div class="row w-100">
+      <div class="col-3 ps-5">
+        <a class="navbar-brand d-flex gap-1" [routerLink]="''">
+          <div class="deline fs-3 fw-bolder">Deline</div>
+          <div class="university fs-3 fw-bolder">University</div>
+        </a>
+      </div>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse col-6 fw-medium"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav menu me-auto d-flex gap-4 mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+        <div
+          class="col-3 d-flex gap-2 justify-content-end align-content-center"
+          *ngIf="!isUserLogin"
+        >
+          <a [routerLink]="'/login'">
+            <app-button
+              text="Login"
+              bgColor="orange"
+              textColor="white"
+            ></app-button
+          ></a>
+          <a [routerLink]="'/register'">
+            <app-button
+              text="Sign Up"
+              bgColor="#0b1d42"
+              textColor="white"
+            ></app-button
+          ></a>
+        </div>
+        <div
+          class="col-3 d-flex gap-2 justify-content-end "
+          *ngIf="isUserLogin"
+        >
+          <a>
+            <app-button
+              (click)="onLogOut()"
+              text="Log Out"
+              bgColor="#0b1d42"
+              textColor="white"
+            ></app-button>
+          </a>
+          <div class="align-self-center">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

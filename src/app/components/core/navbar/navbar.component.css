@@ -1,0 +1,24 @@
+.menu{
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(53, 53, 53, 0.959);
+}
+
+.deline{
+    font-size:20px;
+    font-weight: 600;
+    color: #f79d23;
+}
+
+.university{
+    font-size:20px;
+    font-weight: 600;
+    color: #214181;
+}
+
+.button{
+    background-color: #f79d23;
+    color: white;
+    font-weight: 500;
+    
+}

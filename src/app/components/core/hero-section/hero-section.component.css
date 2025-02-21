@@ -1,0 +1,25 @@
+.hero{
+    background-color: #f79d23;
+    height: 80vh;
+    width: 96vw;
+}
+
+.mainHeading{
+    font-size: 45px;
+    font-weight: 600;
+    color: white;
+}
+
+.subHeading{
+color: white;
+}
+
+.box1{
+    width: 60vw;
+}
+
+.img1 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,12 @@
+.con{
+    width: 85vw;
+    background-color: orange;
+    color: white;
+    margin: auto;
+}
+
+.img1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

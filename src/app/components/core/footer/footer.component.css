@@ -1,0 +1,18 @@
+.footer{
+  background-color: #0b1d42;
+  color: white;
+  width: 100vw;
+  margin: auto;
+}
+.footerText{
+  color: #ceced0;
+}
+
+.footerHeading{
+  font-size: 18px;
+  font-weight: 600;
+}
+.social{
+  color: white;
+  font-size: 20px;
+}

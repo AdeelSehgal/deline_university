@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <div class="row justify-content-start">
+    <div class="col-3 videoDetails rounded-3">
+      <app-course-details
+        *ngFor="let details of courseDetails"
+        [title]="details.title"
+        [duration]="details.duration"
+        [videoNo]="details.id"
+        [selectedVideo]="selectedVideo"
+        [videoLink]="details.link"
+        (click)="onClick(details.link)"
+      >
+      </app-course-details>
+    </div>
+    <div class="col-9">
+      <iframe
+        width="560"
+        height="315"
+        [src]="videoSrc"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        class="rounded-3 courseVideo"
+      ></iframe>
+    </div>
+  </div>
+</div>

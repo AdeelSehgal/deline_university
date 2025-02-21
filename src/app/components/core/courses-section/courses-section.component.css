@@ -1,0 +1,25 @@
+
+.searchInput{
+    box-shadow: 0px 0px 50px rgba(182, 181, 181, 0.486);
+}
+
+.searchButton{
+    font-weight: 700;
+    background-color: #0b1d42;
+    border: none;
+}
+
+.searchButton:hover{
+    background-color: #13316c;
+}
+
+.filterButton{
+    background-color: rgb(227, 235, 243);
+    border: none;
+    color: #0b1d42;
+    font-weight: 500;
+}
+.filterButton:hover{
+    background-color: #0b1d42;
+    color: white;
+}

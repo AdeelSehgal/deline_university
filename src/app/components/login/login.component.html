@@ -1,0 +1,61 @@
+<div class="container my-5  main align-content-center  ">
+    <div class="row justify-content-center ">
+        <div class="col-5 rounded-5  loginform p-4 py-5 ">
+            <div class=" text-center ">
+                <h1 class="fs-3 fw-bold">Sign in with email</h1>
+                <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laborum quod animi blanditiis
+                    obcaecati </p>
+                <form action="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <div class="input-group ">
+                            <span class="input-group-text icons" id="basic-addon1"><i
+                                    class="fa-solid fa-envelope"></i></span>
+                            <input type="email" [class.is-invalid]="email?.invalid && email?.touched"
+                                formControlName="email" class="form-control" placeholder="Email" aria-label="Email"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div *ngIf="email?.invalid && email?.touched">
+                            <div class="text-danger text-start errorMessage" *ngIf="email?.errors?.['required']">
+                                Email is required
+                            </div>
+                            <div class="text-danger text-start errorMessage" *ngIf="email?.errors?.['email']">
+                                Email must be in this form {{temprary}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                          <span class="input-group-text icons" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+                          <input [class.is-invalid]="password?.invalid && password?.touched" formControlName="password"
+                            [type]="passwordView? 'text':'password'" class=" form-control" placeholder="Password"
+                            aria-label="Password" aria-describedby="basic-addon1" />
+                          <span class="input-group-text icons cursor" id="basic-addon1" (click)="viewPassword()">
+                            <i class="fa-solid fa-eye-slash" *ngIf="!passwordView"></i>
+                            <i class="fa-solid fa-eye" *ngIf="passwordView"></i>
+                            </span>
+                        </div>
+                        <div *ngIf="password?.invalid && password?.touched">
+                          <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['required']">
+                            Password is required
+                          </div>
+                          <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['minlength']">
+                            Password must be miimum 8 letters
+                          </div>
+                          <div class="text-danger text-start errorMessage" *ngIf="password?.errors?.['maxlength']">
+                            Password must be maximum 20 letters
+                          </div>
+                        </div>
+                      </div>
+                    <div class=" text-end fw-semibold">
+                        <a href="" class="text-black"> Forget Password</a>
+                    </div>
+                    <div class="my-5">
+                        <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid" [class.btn-secondary]='loginForm.invalid'>
+                          Login
+                        </button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
