@@ -1,0 +1,28 @@
+<div class="container my-5 ">
+    <div class=" mb-4  container d-flex  justify-content-between">
+        <h1 class="text-start ps-4">Your Courses</h1>
+        <div [routerLink]="'/addCourse'">
+            <button class="btn btn-primary ">Add Course+</button>
+        </div>
+    </div>
+    <div class="row justify-content-around gap-5">
+        <div class="col-3">
+            <app-course-card title="Angular"
+                des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nemo officiis saepe, assumenda reprehenderit "
+                img="/assets/41.jpg">
+            </app-course-card>
+        </div>
+        <div class="col-3">
+            <app-course-card title="Angular"
+                des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nemo officiis saepe, assumenda reprehenderit "
+                img="/assets/41.jpg">
+            </app-course-card>
+        </div>
+        <div class="col-3">
+            <app-course-card title="Angular"
+                des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nemo officiis saepe, assumenda reprehenderit "
+                img="/assets/41.jpg">
+            </app-course-card>
+        </div>
+    </div>
+</div>

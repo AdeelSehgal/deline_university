@@ -19,6 +19,9 @@ import { CourseComponent } from './components/course/course.component';
 import { CourseDetailsComponent } from './components/core/course-details/course-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AddCourseVideoComponent } from './components/add-course-video/add-course-video.component';
+import { AddCourseComponent } from './components/add-course/add-course.component';
+import { AllAddedCoursesComponent } from './components/all-added-courses/all-added-courses.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     RegisterComponent,
     CourseComponent,
     CourseDetailsComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    AddCourseVideoComponent,
+    AddCourseComponent,
+    AllAddedCoursesComponent
   ],
   imports: [
     BrowserModule,
