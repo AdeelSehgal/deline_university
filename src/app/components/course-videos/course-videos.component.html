@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class=" mb-4  container d-flex  justify-content-between">
+            <h1 class="text-start ps-4">Course Videos</h1>
+            <div [routerLink]="'/addCourse'">
+                <button class="btn btn-primary ">Add Video+</button>
+            </div>
+        </div>
+    </div>
+    <app-course-video-details title="Angular Introdyction" videoNo="1"></app-course-video-details>
+    <app-course-video-details title="Angular structure" videoNo="2"></app-course-video-details>
+</div>

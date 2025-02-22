@@ -22,6 +22,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { AddCourseVideoComponent } from './components/add-course-video/add-course-video.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { AllAddedCoursesComponent } from './components/all-added-courses/all-added-courses.component';
+import { CourseVideosComponent } from './components/course-videos/course-videos.component';
+import { CourseVideoDetailsComponent } from './components/core/courseVideos/course-video-details/course-video-details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AllAddedCoursesComponent } from './components/all-added-courses/all-add
     ErrorPageComponent,
     AddCourseVideoComponent,
     AddCourseComponent,
-    AllAddedCoursesComponent
+    AllAddedCoursesComponent,
+    CourseVideosComponent,
+    CourseVideoDetailsComponent
   ],
   imports: [
     BrowserModule,

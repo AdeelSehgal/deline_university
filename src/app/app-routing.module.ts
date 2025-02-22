@@ -9,6 +9,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { AddCourseVideoComponent } from './components/add-course-video/add-course-video.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { AllAddedCoursesComponent } from './components/all-added-courses/all-added-courses.component';
+import { CourseVideosComponent } from './components/course-videos/course-videos.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'addCourse', component: AddCourseComponent},
   { path: 'addCourseVideo', component: AddCourseVideoComponent},
   { path: 'allAddedCourses', component: AllAddedCoursesComponent},
+  { path: 'courseVideos', component: CourseVideosComponent},
   { path: '**', component: ErrorPageComponent },
 ];
 
