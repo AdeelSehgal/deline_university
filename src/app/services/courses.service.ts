@@ -1,46 +1,38 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // import httpclient 
+import { Observable } from 'rxjs';
+import { Courses } from '../interface/courses';
+import { environment } from 'src/environments/environment.development';
+@Injectable({
+  providedIn: 'root'
+})
 export class CoursesService {
-    courses = [
-        {
-            id: '101',
-            title: 'Javascript Course',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-            img: 'assets/images.png',
-            type: 'technology'
-        },
-        {
-            id: '102',
-            title: 'Angular Course',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto',
-            img: 'assets/angularCourse.jpg',
-            type: 'technology'
-        },
-        {
-            id: '103',
-            title: 'Laravel Course',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-            img: 'assets/hq720.jpg',
-            type: 'technology'
-        },
-        {
-            id: '104',
-            title: 'Power BI',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-            img: 'assets/maxresdefault.jpg',
-            type: 'business'
-        },
-        {
-            id: '105',
-            title: ' Quick Books',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-            img: 'assets/41.jpg',
-            type: 'business',
-        },
-        {
-            id: '106',
-            title: 'Figma',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-            img: 'assets/Homepage tile .jpg',
-            type: 'designing'
-        },
-    ]
+
+  constructor(private http:HttpClient) { }
+  apiUrl=environment.courses
+
+// get all courses
+  getCourses():Observable<Courses[]>{
+   return this.http.get<Courses[]>(`${this.apiUrl}`)
+  }
+
+  // get single course
+  getSingleCourses(id:number):Observable<Courses[]>{
+    return this.http.get<Courses[]>(`${this.apiUrl}/${id}`)
+  }
+
+   // create course
+   createCourse(course:Courses):Observable<Courses[]>{
+    return this.http.post<Courses[]>(`${this.apiUrl}`,course)
+  }
+
+  // update course
+   updateCourse(course:Courses,id:number):Observable<Courses[]>{
+    return this.http.put<Courses[]>(`${this.apiUrl}/${id}`,course)
+  }
+
+   // delete course
+   deleteCourse(id:number):Observable<Courses[]>{
+    return this.http.delete<Courses[]>(`${this.apiUrl}/${id}`)
+  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {HttpClientModule} from'@angular/common/http' // for api integration we use http client module in app.module and then use it in imports array
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { HeroSectionComponent } from './components/core/home/hero-section/hero-section.component';
 import { ButtonComponent } from './../app/components/common/button/button.component';
@@ -24,6 +25,8 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { AllAddedCoursesComponent } from './components/all-added-courses/all-added-courses.component';
 import { CourseVideosComponent } from './components/course-videos/course-videos.component';
 import { CourseVideoDetailsComponent } from './components/core/courseVideos/course-video-details/course-video-details.component';
+
+
 
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ import { CourseVideoDetailsComponent } from './components/core/courseVideos/cour
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
