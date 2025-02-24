@@ -1,135 +1,92 @@
+import db from '../models/index.js';
+const { courses } = db;
 
+// get all courses
+const getCourses = async (req, res) => {
 
-let courses = [
-    {
-        id: 1,
-        title: 'Javascript Course',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-        img: 'assets/images.png',
-        type: 'technology'
-    },
-    {
-        id: 2,
-        title: 'Angular Course',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto',
-        img: 'assets/angularCourse.jpg',
-        type: 'technology'
-    },
-    {
-        id: 3,
-        title: 'Laravel Course',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-        img: 'assets/hq720.jpg',
-        type: 'technology'
-    },
-    {
-        id: 4,
-        title: 'Power BI',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-        img: 'assets/maxresdefault.jpg',
-        type: 'business'
-    },
-    {
-        id: 5,
-        title: ' Quick Books',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-        img: 'assets/41.jpg',
-        type: 'business',
-    },
-    {
-        id: 6,
-        title: 'Figma',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-        img: 'assets/Homepage tile .jpg',
-        type: 'designing'
-    },
-]
-
-
-const getCourses = (req, res) => {
-    const limit = parseInt(req.query.limit)
-
-    if (limit) {
-        return res.json(courses.slice(0, limit))
+    try {
+        const allCourses = await courses.findAll()
+        res.status(200).json(allCourses)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
-
-    res.json(courses)
 }
 
+// get single course
+const getSingleCourse = async (req, res) => {
 
-const getSingleCourse = (req, res) => {
-    const courseId = parseInt(req.params.id)
-    const course = courses.find((course) => course.id === courseId)
-    if (!course) {
-        return res.json({ message: `there is not course having id ${courseId}` })
+    try {
+        const id = req.params.id
+        const Course = await courses.findAll({ where: { id: id } })
+
+        if (Course.length === 0) {
+            return res.status(404).json({ message: "course not found" })
+        }
+        res.status(200).json(Course)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
-
-    res.json(course)
 }
 
+// create course
+const createCourse = async (req, res) => {
 
-const createCourse = (req, res) => {
+    try {
 
-    const title = req.body.title;
-    const description = req.body.description;
-    const img = req.body.img;
-    const type = req.body.type;
+        const { title, description, image, type } = req.body;
+        if (!title || !description || !image || !type) {
+            return res.status(404).json({ message: "title, description, imamge and type is must" })
+        }
 
-    const course = {
-        id: courses.length + 1,
-        title: title,
-        description: description,
-        img: img,
-        type: type
+        const Course = await courses.create({ title: title, description: description, image: image, type: type })
+        res.status(201).json(Course)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
-
-    if (!title || !description || !img || !type) {
-        return res.json({ message: `title, description, img and type is nessacary` })
-    }
-
-    courses.push(course)
-
-    res.json(courses)
 }
 
+// update course
+const updateCourse = async (req, res) => {
 
-const updateCourse = (req, res) => {
+    try {
 
-    const title = req.body.title
-    const description = req.body.description
-    const img = req.body.img
-    const type = req.body.type
-    const id = parseInt(req.params.id)
-    const course = courses.find((course) => course.id === id);
+        const { id, title, description, image, type } = req.body;
+        if (!title || !description || !image || !type || !id) {
+            return res.status(404).json({ message: "title, description, imamge, id and type is must" })
+        }
 
-    if (!course) {
-        return res.json({ message: `there is no course having id ${id}` })
+        const Course = await courses.update({ title: title, description: description, image: image, type: type }, {
+            where: { id: id, },
+        },)
+
+        if (Course == 1) {
+            return res.status(201).json({ message: `course having id ${id} is updated` })
+        }
+        res.status(404).json({ message: `course having id ${id} is not found` })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
-
-    if (!title || !description || !img || !type) {
-        return res.json({ message: `title, description, img and type is nessacary` })
-    }
-
-    course.title = title;
-    course.description = description;
-    course.type = type;
-    course.img = img;
-
-    res.json(courses)
 }
 
+// delete course
+const deleteCourse = async (req, res) => {
+    try {
+        const id = req.params.id;
 
-const deleteCourse = (req, res) => {
-    const id = parseInt(req.params.id)
-    const course = courses.find((course) => course.id === id);
+        if (!id) {
+            return res.status(404).json({ message: "id and type is must" })
+        }
+        const Course = await courses.destroy({ where: { id: id } })
+        console.log(typeof (Course))
 
-    if (!course) {
-        return res.json({ message: `there is no course having id ${id}` })
+        if (Course == 1) {
+            return res.status(201).json({ message: `course having id ${id} is deleted` })
+        }
+        res.status(404).json({ message: `course having id ${id} is not found` })
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
-
-    courses = courses.filter((course) => course.id !== id)
-    res.json(courses)
 }
-
 
 export { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse }

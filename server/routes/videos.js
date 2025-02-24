@@ -2,19 +2,19 @@ import express from 'express'
 import { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse } from '../controllers/courses.js'
 const router = express.Router()
 
-// get all post
+// get all videos
 router.get('/', getCourses)
 
-// get single post
+// get single video
 router.get('/:id', getSingleCourse)
 
-// create course
+// create video
 router.post('/', createCourse)
 
-// update course
-router.put('/', updateCourse)
+// update video
+router.put('/:id', updateCourse)
 
-// delete course 
+// delete video
 router.delete('/:id', deleteCourse)
 
 export default router
