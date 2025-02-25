@@ -12,7 +12,7 @@ router.get('/:id', getSingleCourse)
 router.post('/', createCourse)
 
 // update course
-router.put('/', updateCourse)
+router.put('/:id', updateCourse)
 
 // delete course 
 router.delete('/:id', deleteCourse)

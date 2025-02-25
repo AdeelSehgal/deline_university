@@ -1,20 +1,30 @@
-import express from 'express'
-import { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse } from '../controllers/courses.js'
-const router = express.Router()
+import express from "express";
+import {
+  getUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  loginUser,
+} from "../controllers/users.js";
+const router = express.Router();
 
 // get all users
-router.get('/', getCourses)
+router.get("/", getUsers);
 
 // get single user
-router.get('/:id', getSingleCourse)
-user
+router.get("/:id", getSingleUser);
+
 // create user
-router.post('/', createCourse)
+router.post("/", createUser);
+
+// login user
+router.post("/login", loginUser);
 
 // update user
-router.put('/:id', updateCourse)
+router.put("/:id", updateUser);
 
-// delete user 
-router.delete('/:id', deleteCourse)
+// delete user
+router.delete("/:id", deleteUser);
 
-export default router
+export default router;
