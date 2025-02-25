@@ -15,7 +15,7 @@ export default (sequelize, Datatypes) => {
             },
         },
         image: {
-            type: Datatypes.STRING,
+            type: Datatypes.TEXT('long'),
             allowNull: false,
             validate: {
                 notEmpty: true,

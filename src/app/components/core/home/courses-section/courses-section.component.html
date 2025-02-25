@@ -54,7 +54,7 @@
       <div
         class="col-3"
         *ngFor="let course of renderedCourse"
-        (click)="onClick(course.id)"
+        (click)="onClick(course.id || '1')"
       >
         <app-course-card
           *ngIf="renderedCourse.length > 0"
