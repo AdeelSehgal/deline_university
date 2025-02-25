@@ -1,52 +1,31 @@
 <div class="container my-5 main align-content-center main">
   <div class="row justify-content-center align-content-center gap-4">
-    <div
-      class="col-6 rounded-5 loginform p-4 py-5 align-self-center registrationForm form"
-    >
+    <div class="col-6 rounded-5 loginform p-4 py-5 align-self-center registrationForm form">
       <div class="text-center p-2">
         <h1 class="fs-2 fw-bold">Add Course Details</h1>
         <p class="">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laborum
           quod animi blanditiis obcaecati
         </p>
-        <form
-          action=""
-          [formGroup]="addCourseForm"
-          (ngSubmit)="onSubmit()"
-          novalidate
-        >
+        <form action="" [formGroup]="addCourseForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="mb-3">
             <div class="">
-              <input
-                [class.is-invalid]="courseName?.invalid && courseName?.touched"
-                formControlName="courseName"
-                type="text"
-                class="form-control py-2"
-                placeholder="Course Name"
-              />
+              <input [class.is-invalid]="courseName?.invalid && courseName?.touched" formControlName="courseName"
+                type="text" class="form-control py-2" placeholder="Course Name" />
             </div>
             <div *ngIf="courseName?.invalid && courseName?.touched">
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseName?.errors?.['required']"
-              >
+              <div class="text-danger text-start errorMessage" *ngIf="courseName?.errors?.['required']">
                 Course name is required
               </div>
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseName?.errors?.['minlength']"
-              >
+              <div class="text-danger text-start errorMessage" *ngIf="courseName?.errors?.['minlength']">
                 Course name must be minimum 3 letters
               </div>
             </div>
           </div>
           <div class="mb-3">
             <div class="">
-              <select
-                class="form-select"
-                [class.is-invalid]="courseType?.invalid && courseType?.touched"
-                formControlName="courseType"
-              >
+              <select class="form-select" [class.is-invalid]="courseType?.invalid && courseType?.touched"
+                formControlName="courseType">
                 <option value="" selected>Select Type</option>
                 <option value="technology">Technology</option>
                 <option value="business">Business</option>
@@ -54,72 +33,41 @@
               </select>
             </div>
             <div *ngIf="courseType?.invalid && courseType?.touched">
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseType?.errors?.['required']"
-              >
+              <div class="text-danger text-start errorMessage" *ngIf="courseType?.errors?.['required']">
                 Select Course Type
               </div>
             </div>
           </div>
           <div class="mb-3">
             <div class="">
-              <textarea
-                class="form-control"
-                id="exampleFormControlTextarea1"
-                rows="3"
-                [class.is-invalid]="
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [class.is-invalid]="
                   courseDescription?.invalid && courseDescription?.touched
-                "
-                formControlName="courseDescription"
-                placeholder="Course Description"
-              ></textarea>
+                " formControlName="courseDescription" placeholder="Course Description"></textarea>
             </div>
-            <div
-              *ngIf="courseDescription?.invalid && courseDescription?.touched"
-            >
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseDescription?.errors?.['required']"
-              >
+            <div *ngIf="courseDescription?.invalid && courseDescription?.touched">
+              <div class="text-danger text-start errorMessage" *ngIf="courseDescription?.errors?.['required']">
                 Course description is required
               </div>
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseDescription?.errors?.['minlength']"
-              >
+              <div class="text-danger text-start errorMessage" *ngIf="courseDescription?.errors?.['minlength']">
                 Course description must be minimum 3 letters
               </div>
             </div>
           </div>
           <div class="mb-3">
             <div class="text-start">
-              <input
-                [class.is-invalid]="courseImg?.invalid && courseImg?.touched"
-                formControlName="courseImg"
-                type="text"
-                id="file"
-                class="form-control py-2"
-                placeholder="Image Link"
-              />
+              <input [class.is-invalid]="courseImg?.invalid && courseImg?.touched" formControlName="courseImg"
+                type="text" id="file" class="form-control py-2" placeholder="Image Link" />
             </div>
             <div *ngIf="courseImg?.invalid && courseImg?.touched">
-              <div
-                class="text-danger text-start errorMessage"
-                *ngIf="courseImg?.errors?.['required']"
-              >
+              <div class="text-danger text-start errorMessage" *ngIf="courseImg?.errors?.['required']">
                 Image link is required
               </div>
             </div>
           </div>
           <div class="my-5">
-            <button
-              class="btn btn-primary w-100"
-              type="submit"
-              [disabled]="addCourseForm.invalid"
-              [class.btn-secondary]="addCourseForm.invalid"
-            >
-              Add
+            <button class="btn btn-primary w-100" type="submit" [disabled]="addCourseForm.invalid"
+              [class.btn-secondary]="addCourseForm.invalid">
+              {{isUpdate?'Update':'Add'}}
             </button>
           </div>
         </form>

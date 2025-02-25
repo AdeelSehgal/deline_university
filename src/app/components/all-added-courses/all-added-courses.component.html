@@ -14,7 +14,8 @@
                     </app-course-card>
                 </a>
                 <div class="d-flex justify-content-center gap-3  mt-3">
-                    <button class="btn btn-warning w-50 text-white ">Edit</button>
+                    <button class="btn btn-warning w-50 text-white" routerLink="/addCourse"
+                        [queryParams]={courseId:course.id,name:course.title,type:course.type,description:course.description,image:course.image}>Edit</button>
                     <button class="btn btn-danger w-50 " (click)="deleteCourse(course.id)">Delete</button>
                 </div>
             </div>

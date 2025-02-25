@@ -18,8 +18,6 @@ export class CoursesSectionComponent implements OnInit {
   ngOnInit(): void {
     this.allCourses = []
     this.renderedCourse = []
-    // this.updateCourse()
-    // this.deleteCourse()
     this.getCourses()
   }
 
@@ -34,21 +32,6 @@ export class CoursesSectionComponent implements OnInit {
       // ()=>console.log('done getting courses')
     )
   }
-
-
-//   // update course
-//   updateCourse():void{
-//     this.courses.updateCourse(this.addCourse,2).subscribe(
-//       (res)=>{
-//         console.log(res)
-//       },
-//       (err)=>console.log(err),
-//       ()=>console.log('done getting courses')
-//     )
-//   }
-
-
-
 
   onClick(id: number) {
     this.router.navigateByUrl('course/' + id)
