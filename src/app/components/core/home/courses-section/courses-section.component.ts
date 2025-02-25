@@ -15,25 +15,15 @@ export class CoursesSectionComponent implements OnInit {
   renderedCourse: Courses[] = []
   constructor(private courses: CoursesService, private router: Router) { }
 
-  // dummy payload
-//   addCourse= {
-//     id:"2",
-//     title: 'Javascript Course',
-//     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolorem soluta totam architecto exercitationem odit',
-//     img: 'assets/images.png',
-//     type: 'technology'
-// }
-
   ngOnInit(): void {
     this.allCourses = []
     this.renderedCourse = []
-    // this.createCourse()
     // this.updateCourse()
     // this.deleteCourse()
     this.getCourses()
   }
 
-  // APIs
+  // get all courses
   getCourses():void{
     this.courses.getCourses().subscribe(
       (res)=>{
@@ -41,20 +31,10 @@ export class CoursesSectionComponent implements OnInit {
         this.renderedCourse=res
       },
       (err)=>console.log(err),
-      ()=>console.log('done getting courses')
+      // ()=>console.log('done getting courses')
     )
   }
 
-// // create course
-//   createCourse():void{
-//     this.courses.createCourse(this.addCourse).subscribe(
-//       (res)=>{
-//         console.log(res)
-//       },
-//       (err)=>console.log(err),
-//       ()=>console.log('done getting courses')
-//     )
-//   }
 
 //   // update course
 //   updateCourse():void{
@@ -67,21 +47,10 @@ export class CoursesSectionComponent implements OnInit {
 //     )
 //   }
 
-//   // delete course
-//   // update course
-//   deleteCourse():void{
-//     this.courses.deleteCourse(5).subscribe(
-//       (res)=>{
-//         console.log(res)
-//       },
-//       (err)=>console.log(err),
-//       ()=>console.log('done getting courses')
-//     )
-//   }
 
 
 
-  onClick(id: string) {
+  onClick(id: number) {
     this.router.navigateByUrl('course/' + id)
   }
 

@@ -51,7 +51,7 @@ export class AddCourseComponent {
       },
       (err) => console.log(err),
       () => {
-        alert('Course is added');
+        alert('Successfully add course. Now you can add videos to your course');
         this.router.navigateByUrl('/allAddedCourses')
       }
     )
@@ -65,6 +65,5 @@ export class AddCourseComponent {
       type: this.addCourseForm.value.courseType || ''
     }
     this.createCourse(this.addCourse)
-
   }
 }
