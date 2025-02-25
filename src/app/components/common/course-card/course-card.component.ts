@@ -9,5 +9,5 @@ export class CourseCardComponent {
 
   @Input() title:string=''
   @Input() des:string=''
-  @Input() img:string=''
+  @Input() image:string=''
 }
