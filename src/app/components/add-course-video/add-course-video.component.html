@@ -1,66 +1,101 @@
 <div class="container my-5 main align-content-center main">
-    <div class="row justify-content-center align-content-center gap-4">
-        <div class="col-6 rounded-5 loginform  p-4 py-5 align-self-center registrationForm form">
-            <div class="text-center p-2 ">
-                <h1 class="fs-2 fw-bold "> Add Course Video</h1>
-                <p class="">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laborum
-                    quod animi blanditiis obcaecati
-                </p>
-                <form action="" [formGroup]="addCourseVideoForm" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="mb-3">
-                        <div class="">
-                            <select class="form-select"
-                                [class.is-invalid]="selectedCourse?.invalid && selectedCourse?.touched"
-                                formControlName="selectedCourse">
-                                <option value="" selected>Select Course</option>
-                                <option value="Angular">Angular</option>
-                                <option value="Laravel">Laravel</option>
-                                <option value="Javascript">Javascript</option>
-                            </select>
-                        </div>
-                        <div *ngIf="selectedCourse?.invalid && selectedCourse?.touched">
-                            <div class="text-danger text-start errorMessage"
-                                *ngIf="selectedCourse?.errors?.['required']">
-                             Select Course
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="">
-                            <input [class.is-invalid]="videoTitle?.invalid && videoTitle?.touched"
-                                formControlName="videoTitle" type="text" class="form-control py-2"
-                                placeholder="Video Title" />
-                        </div>
-                        <div *ngIf="videoTitle?.invalid && videoTitle?.touched">
-                            <div class="text-danger text-start errorMessage" *ngIf="videoTitle?.errors?.['required']">
-                                Video title is required
-                            </div>
-                            <div class="text-danger text-start errorMessage" *ngIf="videoTitle?.errors?.['minlength']">
-                                Video title must be minimum 3 letters
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="">
-                            <input [class.is-invalid]="videoLink?.invalid && videoLink?.touched"
-                                formControlName="videoLink" type="text" class="form-control py-2"
-                                placeholder="Video Link" />
-                        </div>
-                        <div *ngIf="videoLink?.invalid && videoLink?.touched">
-                            <div class="text-danger text-start errorMessage" *ngIf="videoLink?.errors?.['required']">
-                                Video link is required
-                            </div>
-                        </div>
-                    </div>
-                    <div class="my-5">
-                        <button class="btn btn-primary w-100" type="submit" [disabled]="addCourseVideoForm.invalid"
-                            [class.btn-secondary]='addCourseVideoForm.invalid'>
-                            Add
-                        </button>
-                    </div>
-                </form>
+  <div class="row justify-content-center align-content-center gap-4">
+    <div
+      class="col-6 rounded-5 loginform p-4 py-5 align-self-center registrationForm form"
+    >
+      <div class="text-center p-2">
+        <h1 class="fs-2 fw-bold">Add Course Video</h1>
+        <p class="">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laborum
+          quod animi blanditiis obcaecati
+        </p>
+        <form
+          action=""
+          [formGroup]="addCourseVideoForm"
+          (ngSubmit)="onSubmit()"
+          novalidate
+        >
+          <div class="mb-3">
+            <div class="">
+              <select
+                class="form-select"
+                [class.is-invalid]="
+                  selectedCourse?.invalid && selectedCourse?.touched
+                "
+                formControlName="selectedCourse"
+              >
+                <option value="" selected>Select Course</option>
+
+                <option [value]="course.id" *ngFor="let course of allCourses">
+                  {{ course.title }}
+                </option>
+              </select>
             </div>
-        </div>
+            <div *ngIf="selectedCourse?.invalid && selectedCourse?.touched">
+              <div
+                class="text-danger text-start errorMessage"
+                *ngIf="selectedCourse?.errors?.['required']"
+              >
+                Select Course
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="">
+              <input
+                [class.is-invalid]="videoTitle?.invalid && videoTitle?.touched"
+                formControlName="videoTitle"
+                type="text"
+                class="form-control py-2"
+                placeholder="Video Title"
+              />
+            </div>
+            <div *ngIf="videoTitle?.invalid && videoTitle?.touched">
+              <div
+                class="text-danger text-start errorMessage"
+                *ngIf="videoTitle?.errors?.['required']"
+              >
+                Video title is required
+              </div>
+              <div
+                class="text-danger text-start errorMessage"
+                *ngIf="videoTitle?.errors?.['minlength']"
+              >
+                Video title must be minimum 3 letters
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="">
+              <input
+                [class.is-invalid]="videoLink?.invalid && videoLink?.touched"
+                formControlName="videoLink"
+                type="text"
+                class="form-control py-2"
+                placeholder="Video Link"
+              />
+            </div>
+            <div *ngIf="videoLink?.invalid && videoLink?.touched">
+              <div
+                class="text-danger text-start errorMessage"
+                *ngIf="videoLink?.errors?.['required']"
+              >
+                Video link is required
+              </div>
+            </div>
+          </div>
+          <div class="my-5">
+            <button
+              class="btn btn-primary w-100"
+              type="submit"
+              [disabled]="addCourseVideoForm.invalid"
+              [class.btn-secondary]="addCourseVideoForm.invalid"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

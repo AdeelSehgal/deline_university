@@ -37,16 +37,20 @@ export class CourseVideosComponent implements OnInit {
 
 
   // delete course video
-  deleteCourseVideo(courseId: number | undefined): void {
-    if (courseId) {
+  deleteCourseVideo(id: number | undefined): void {
+    if (id) {
       const confirmDelete = confirm('Are you sure to delete video')
       if (confirmDelete) {
-        this.videos.deleteVideo(courseId).subscribe(
+        this.videos.deleteVideo(id).subscribe(
           (res) => {
             console.log(res)
           },
           (err) => console.log(err),
-          () => { this.getcourseVideos(courseId) }
+          () => {
+            if (this.courseId) {
+              this.getcourseVideos(this.courseId)
+            }
+          }
         )
       } else {
         return

@@ -27,13 +27,13 @@ export class VideosService {
     }
 
     // create Video
-    createVideo(Videos: Videos): Observable<Videos[]> {
-        return this.http.post<Videos[]>(`${this.apiUrl}`, Videos)
+    createVideo(Video: Videos): Observable<Videos[]> {
+        return this.http.post<Videos[]>(`${this.apiUrl}`, Video)
     }
 
     // update Video
-    updateVideo(Videos: Videos, id: number): Observable<Videos[]> {
-        return this.http.put<Videos[]>(`${this.apiUrl}/${id}`, Videos)
+    updateVideo(Video: Videos, id: number): Observable<Videos[]> {
+        return this.http.put<Videos[]>(`${this.apiUrl}/${id}`, Video)
     }
 
     // delete Video
