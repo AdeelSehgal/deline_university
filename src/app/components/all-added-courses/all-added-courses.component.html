@@ -1,27 +1,42 @@
-<div class="container my-5 ">
-    <div class=" mb-4  container d-flex  justify-content-between">
-        <h1 class="text-start ps-4 fs-2  ">Courses</h1>
-        <div [routerLink]="'/addCourse'">
-            <button class="btn btn-primary button ">Add Course+</button>
-        </div>
+<div class="container my-5">
+  <div class="mb-4 container d-flex justify-content-between">
+    <h1 class="text-start ps-4 fs-2">Courses</h1>
+    <div [routerLink]="'/addCourse'">
+      <button class="btn btn-primary button">Add Course+</button>
     </div>
-    <div class="row justify-content-around gap-5 ">
-        <div class="d-flex  justify-content-between">
-            <div class="" *ngFor="let course of allCourses">
-                <a routerLink="/courseVideos">
-                    <app-course-card *ngIf="allCourses.length>0" [title]="course.title" [des]="course.description"
-                        [image]="course.image">
-                    </app-course-card>
-                </a>
-                <div class="d-flex justify-content-center gap-3  mt-3">
-                    <button class="btn btn-warning w-50 text-white" routerLink="/addCourse"
-                        [queryParams]={courseId:course.id,name:course.title,type:course.type,description:course.description,image:course.image}>Edit</button>
-                    <button class="btn btn-danger w-50 " (click)="deleteCourse(course.id)">Delete</button>
-                </div>
-            </div>
-        </div>
-        <div class="fs-2 text-secondary" *ngIf="allCourses.length === 0">
-            No Course Found
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-4 mt-5" *ngFor="let course of allCourses">
+      <a [routerLink]="['/courseVideos', course.id]" class="">
+        <app-course-card
+          *ngIf="allCourses.length > 0"
+          [title]="course.title"
+          [des]="course.description"
+          [image]="course.image"
+        >
+        </app-course-card>
+      </a>
+      <div class="d-flex gap-3 mt-3 coursebutton">
+        <button
+          class="btn btn-warning w-50 text-white"
+          routerLink="/addCourse"
+          [queryParams]="{
+            courseId: course.id,
+            name: course.title,
+            type: course.type,
+            description: course.description,
+            image: course.image
+          }"
+        >
+          Edit
+        </button>
+        <button class="btn btn-danger w-50" (click)="deleteCourse(course.id)">
+          Delete
+        </button>
+      </div>
     </div>
+    <div class="fs-2 text-secondary" *ngIf="allCourses.length === 0">
+      No Course Found
+    </div>
+  </div>
 </div>

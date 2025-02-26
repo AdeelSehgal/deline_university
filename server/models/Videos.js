@@ -1,5 +1,5 @@
 export default (sequelize, Datatypes) => {
-    const videos = sequelize.define("videos", {
+    const Videos = sequelize.define("Videos", {
         title: {
             type: Datatypes.STRING,
             allowNull: false,
@@ -16,5 +16,9 @@ export default (sequelize, Datatypes) => {
         },
     });
 
-    return videos;
+    Videos.associate = function (models) {
+        Videos.belongsTo(models.Courses, { onDelete: 'CASCADE' })
+    };
+
+    return Videos;
 };

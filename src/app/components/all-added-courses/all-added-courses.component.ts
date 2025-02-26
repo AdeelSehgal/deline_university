@@ -15,7 +15,6 @@ export class AllAddedCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.allCourses = []
-
     this.getCourses()
   }
 

@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'addCourse', component: AddCourseComponent},
   { path: 'addCourseVideo', component: AddCourseVideoComponent},
   { path: 'allAddedCourses', component: AllAddedCoursesComponent},
-  { path: 'courseVideos', component: CourseVideosComponent},
+  { path: 'courseVideos/:id', component: CourseVideosComponent},
   { path: '**', component: ErrorPageComponent },
 ];
 

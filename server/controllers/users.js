@@ -1,10 +1,10 @@
 import db from "../models/index.js";
-const { users } = db;
+const { Users } = db;
 
 // get all users
 const getUsers = async (req, res) => {
   try {
-    const allusers = await users.findAll();
+    const allusers = await Users.findAll();
 
     if (allusers.length === 0) {
       return res.status(404).json({ message: "users not found" });
@@ -20,7 +20,7 @@ const getUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await users.findAll({ where: { id: id } });
+    const user = await Users.findAll({ where: { id: id } });
 
     if (user.length === 0) {
       return res.status(404).json({ message: "user not found" });
@@ -41,7 +41,7 @@ const createUser = async (req, res) => {
       });
     }
 
-    const createduser = await users.create({
+    const createduser = await Users.create({
       userName: userName,
       email: email,
       password: password,
@@ -65,7 +65,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const loginUser = await users.findAll({
+    const loginUser = await Users.findAll({
       where: {
         email: email,
         password: password,
@@ -96,7 +96,7 @@ const updateUser = async (req, res) => {
       });
     }
 
-    const user = await users.update(
+    const user = await Users.update(
       {
         userName: userName,
         email: email,
@@ -128,7 +128,7 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "id is must" });
     }
 
-    const user = await users.destroy({ where: { id: id } });
+    const user = await Users.destroy({ where: { id: id } });
 
     if (user === 1) {
       return res
