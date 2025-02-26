@@ -1,4 +1,5 @@
 import db from "../models/index.js";
+import jwt from 'jsonwebtoken'
 const { Users } = db;
 
 // get all users
@@ -78,7 +79,14 @@ const loginUser = async (req, res) => {
       });
     }
 
-    res.status(201).json({ message: `user is login`, loginUser });
+    const user = {
+      email: email,
+      password: password
+    }
+
+    const token = jwt.sign(user, process.env.SECRET_KEY)
+
+    res.status(201).json({ message: `user is login`, token: token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

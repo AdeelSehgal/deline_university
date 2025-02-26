@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Users } from 'src/app/interface/users';
+import { UsersService } from 'src/app/services/users.service';
 
-type User={
-email:string,
- password:string,
+type User = {
+  email: string,
+  password: string,
 }
 @Component({
   selector: 'app-register',
@@ -16,7 +18,7 @@ export class RegisterComponent implements OnInit {
   passwordView: boolean = false
   confirmPasswordView: boolean = false
   temprary: string = 'test@gamil.com'
-  users: User[] = []  
+  // users: User[] = []  
   registerEmail: string = ''
   registerPassword: string = ''
 
@@ -40,7 +42,7 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.get('confirmPassword')
   }
 
-  constructor(private fb: FormBuilder, private route: Router) { }
+  constructor(private fb: FormBuilder, private route: Router, private users: UsersService) { }
 
   registrationForm = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(3)]],
@@ -78,21 +80,28 @@ export class RegisterComponent implements OnInit {
     this.confirmPasswordView = !this.confirmPasswordView
   }
 
+  //  create user 
+  createUser(user: Users): void {
+    this.users.createUser(user).subscribe(
+      (res) => {
+        // console.log(res)
+      },
+      (err) => console.log(err),
+      () => {
+        alert('Successfully register');
+        this.route.navigateByUrl('/login')
+      }
+    )
+  }
+
+
   onSubmit() {
-    console.log(this.registrationForm.value)
-    this.registerEmail = this.registrationForm.value.email
-    this.registerPassword = this.registrationForm.value.password
-
-    this.users?.push({ email: this.registrationForm.value.email, password: this.registrationForm.value.password })
-
-    // this.users?.push(this.registrationForm.value)
-    // console.log(this.users)
-
-    localStorage.setItem('users', JSON.stringify(this.users))
-    alert("Successfully Register")
-    
-    setTimeout(() => {
-      this.route.navigateByUrl('login')
-    }, 1000);
+    const addUser = {
+      userName: this.registrationForm.value.userName,
+      email: this.registrationForm.value.email,
+      password: this.registrationForm.value.password,
+      userType: 'user',
+    }
+    this.createUser(addUser)
   }
 }

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUser } from 'src/app/interface/users';
+import { UsersService } from 'src/app/services/users.service';
 
-type User = {
-  email: string,
-  password: string,
-}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,18 +12,12 @@ type User = {
 export class LoginComponent implements OnInit {
 
   passwordView: boolean = false
-  temprary: string = 'test@gamil.com'
-  registerUsers: User[] = []
+  temprary: string = 'test@gamil.com' // use is html template
 
-  constructor(private fb: FormBuilder, private route: Router) { }
+  constructor(private fb: FormBuilder, private route: Router, private users: UsersService) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    const localData = localStorage.getItem('users')
-    if (localData) {
-      this.registerUsers = JSON.parse(localData)
-    }
-    console.log(this.registerUsers)
   }
 
   loginForm = this.fb.group({
@@ -46,18 +38,27 @@ export class LoginComponent implements OnInit {
     this.passwordView = !this.passwordView
   }
 
-  onSubmit() {
-    console.log(this.loginForm)
-    const isUserExist = this.registerUsers.find((u) => u.email === this.loginForm.value.email && u.password === this.loginForm.value.password)
+  //  login user 
+  loginUser(user: LoginUser): void {
+    this.users.loginUser(user).subscribe(
+      (res) => {
+        localStorage.setItem('token', res.token)
+      },
+      (err) => console.log(err),
+      () => {
+        alert('Login successful');
+        this.route.navigateByUrl('/')
+      }
+    )
+  }
 
-    if (isUserExist) {
-      alert('Successfully login')
-      localStorage.setItem('token', '123456789')
-      setTimeout(() => {
-        this.route.navigateByUrl('home')
-      }, 1000);
-    } else {
-      alert('invalid credentials')
+
+  onSubmit() {
+
+    const loginUser = {
+      email: this.loginForm.value.email || '',
+      password: this.loginForm.value.password || '',
     }
+    this.loginUser(loginUser)
   }
 }
