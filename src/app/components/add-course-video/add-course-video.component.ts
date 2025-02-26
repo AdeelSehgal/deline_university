@@ -15,10 +15,28 @@ export class AddCourseVideoComponent {
 
   allCourses: Courses[] = []
   isUpdate: boolean = false
+  videoId: number | null = null
+  courseId: string | null = null
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getCourses()
+    this.activatedroute.queryParamMap.subscribe((params) => {
+      this.videoId = parseInt(params.get('videoId') || '')
+      const title = params.get('title')
+      const link = params.get('link')
+      this.courseId = params.get('CourseId')
+
+      if (this.videoId && title && link && this.courseId) {
+        const updateVideo = {
+          selectedCourse: this.courseId,
+          videoTitle: title,
+          videoLink: link,
+        }
+        this.addCourseVideoForm.setValue(updateVideo)
+        this.isUpdate = true
+      }
+    })
   }
 
   get selectedCourse() {
@@ -53,7 +71,6 @@ export class AddCourseVideoComponent {
     )
   }
 
-
   //  create video 
   createVideo(addVideo: Videos): void {
     this.videos.createVideo(addVideo).subscribe(
@@ -68,16 +85,30 @@ export class AddCourseVideoComponent {
     )
   }
 
+  // update video
+  updateVideo(updatedVideo: Videos, id: number): void {
+    this.videos.updateVideo(updatedVideo, id).subscribe(
+      (res) => {
+      },
+      (err) => console.log(err),
+      () => {
+        alert('Video is updated.');
+        this.router.navigateByUrl(`/courseVideos/${this.courseId}`)
+      }
+    )
+  }
 
   onSubmit() {
     const addvideo = {
       title: this.addCourseVideoForm.value.videoTitle || '',
       link: this.addCourseVideoForm.value.videoLink || '',
       CourseId: parseInt(this.addCourseVideoForm.value.selectedCourse || '')
-
     }
 
-    this.createVideo(addvideo)
-
+    if (this.isUpdate && this.videoId) {
+      this.updateVideo(addvideo, this.videoId)
+    } else {
+      this.createVideo(addvideo)
+    }
   }
 }

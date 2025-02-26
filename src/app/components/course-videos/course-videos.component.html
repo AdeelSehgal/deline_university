@@ -9,24 +9,24 @@
   </div>
 
   <div></div>
-  <div
-    class="d-flex justify-content-between align-items-center border p-3 rounded-4 videoCard mb-3"
-    *ngFor="let video of allVideos"
-  >
+  <div class="d-flex justify-content-between align-items-center border p-3 rounded-4 videoCard mb-3"
+    *ngFor="let video of allVideos">
     <div class="d-flex gap-3 align-content-center">
       <span class="border p-2 rounded-circle px-3 videoNo">{{
         allVideos.indexOf(video) + 1
-      }}</span>
-      <a href=""
-        ><div class="fs-3 text-capitalize">{{ video.title }}</div></a
-      >
+        }}</span>
+      <a href="">
+        <div class="fs-3 text-capitalize">{{ video.title }}</div>
+      </a>
     </div>
     <div class="d-flex gap-3">
-      <i
-        class="fa-solid fa-trash curson-pointer text-danger fs-5"
-        (click)="deleteCourseVideo(video.id)"
-      ></i>
-      <i class="fa-solid fa-pen-to-square curson-pointer text-success fs-5" ></i>
+      <i class="fa-solid fa-trash curson-pointer text-danger fs-5" (click)="deleteCourseVideo(video.id)"></i>
+      <i class="fa-solid fa-pen-to-square curson-pointer text-success fs-5" routerLink="/addCourseVideo" [queryParams]="{
+        videoId: video.id,
+        title: video.title,
+        link: video.link,
+        CourseId: video.CourseId,
+      }"></i>
     </div>
   </div>
 

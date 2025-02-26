@@ -8,26 +8,18 @@
   <div class="row">
     <div class="col-4 mt-5" *ngFor="let course of allCourses">
       <a [routerLink]="['/courseVideos', course.id]" class="">
-        <app-course-card
-          *ngIf="allCourses.length > 0"
-          [title]="course.title"
-          [des]="course.description"
-          [image]="course.image"
-        >
+        <app-course-card *ngIf="allCourses.length > 0" [title]="course.title" [des]="course.description"
+          [image]="course.image">
         </app-course-card>
       </a>
       <div class="d-flex gap-3 mt-3 coursebutton">
-        <button
-          class="btn btn-warning w-50 text-white"
-          routerLink="/addCourse"
-          [queryParams]="{
+        <button class="btn btn-warning w-50 text-white" routerLink="/addCourse" [queryParams]="{
             courseId: course.id,
             name: course.title,
             type: course.type,
             description: course.description,
             image: course.image
-          }"
-        >
+          }">
           Edit
         </button>
         <button class="btn btn-danger w-50" (click)="deleteCourse(course.id)">

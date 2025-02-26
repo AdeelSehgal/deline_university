@@ -56,11 +56,11 @@ const createVideo = async (req, res) => {
 // update video
 const updatevideo = async (req, res) => {
   try {
-    const { title, link } = req.body;
+    const { title, link, CourseId } = req.body;
     const id = req.params.id;
-    if (!title || !link || !id) {
+    if (!title || !link || !id || !CourseId) {
       return res.status(404).json({
-        message: "title, link and id is required",
+        message: "title, link ,video id and course id is required",
       });
     }
 
@@ -68,6 +68,7 @@ const updatevideo = async (req, res) => {
       {
         title: title,
         link: link,
+        CourseId: CourseId
       },
       {
         where: { id: id },
