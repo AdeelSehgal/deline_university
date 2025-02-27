@@ -44,8 +44,12 @@ export class LoginComponent implements OnInit {
       (res) => {
         localStorage.setItem('token', res.token)
         localStorage.setItem('userType', res.userType)
+        console.log('ssssssssss', res)
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err.response);
+        if (err.status === 404) { alert('Invalid password or email') }
+      },
       () => {
         alert('Login successful');
         this.route.navigateByUrl('/')

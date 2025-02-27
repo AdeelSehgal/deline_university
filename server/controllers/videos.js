@@ -1,11 +1,14 @@
+import { QueryTypes } from 'sequelize';
 import db from "../models/index.js";
-const { Videos } = db;
+const { Videos, sequelize } = db;
 
 // get all videos
 const getVideos = async (req, res) => {
   try {
 
-    const allvideos = await Videos.findAll();
+    const allvideos = await sequelize.query('select * from Videos', {
+      type: QueryTypes.SELECT,
+    });
 
     if (allvideos.length === 0) {
       return res.status(404).json({ message: "videos not found" });
@@ -21,7 +24,15 @@ const getVideos = async (req, res) => {
 const getSingleVideo = async (req, res) => {
   try {
     const id = req.params.id;
+
+    //sequelize query
     const video = await Videos.findAll({ where: { id: id } });
+
+    // raw query
+    // const video = await sequelize.query(`select * from Videos where id= ? `, {
+    //   type: QueryTypes.SELECT,
+    //   replacements: [id]
+    // });
 
     if (video.length === 0) {
       return res.status(404).json({ message: "video not found" });
@@ -42,11 +53,19 @@ const createVideo = async (req, res) => {
       });
     }
 
+    // Sequelize
     const createdvideo = await Videos.create({
       title: title,
       link: link,
       CourseId: parseInt(CourseId)
     });
+
+    // raw query
+    // const createdvideo = await sequelize.query('insert into Videos (title, link,createdAt, updatedAt,CourseId) values (?,?,now(),now(),?)', {
+    //   type: QueryTypes.INSERT,
+    //   replacements: [title, link, parseInt(CourseId)]
+    // });
+
     res.status(201).json({ message: `video is created`, createdvideo });
   } catch (error) {
     res.status(500).json({ message: error.message });
