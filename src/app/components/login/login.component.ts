@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-
     const loginUser = {
       email: this.loginForm.value.email || '',
       password: this.loginForm.value.password || '',
