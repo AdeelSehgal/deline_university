@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CourseComponent } from './components/course/course.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AutherizationGuard } from './guard/autherization.guard';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { AddCourseVideoComponent } from './components/add-course-video/add-course-video.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
@@ -17,9 +18,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'course/:id', component: CourseComponent, canActivate: [AuthGuard] },
-  { path: 'addCourse', component: AddCourseComponent},
-  { path: 'addCourseVideo', component: AddCourseVideoComponent},
-  { path: 'allAddedCourses', component: AllAddedCoursesComponent},
+  { path: 'addCourse', component: AddCourseComponent, canActivate: [AutherizationGuard] },
+  { path: 'addCourseVideo', component: AddCourseVideoComponent, canActivate: [AutherizationGuard] },
+  { path: 'allAddedCourses', component: AllAddedCoursesComponent, canActivate: [AutherizationGuard] },
   { path: 'courseVideos/:id', component: CourseVideosComponent},
   { path: '**', component: ErrorPageComponent },
 ];

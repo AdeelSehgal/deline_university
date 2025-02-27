@@ -15,5 +15,6 @@ export interface LoginUser {
 export interface LoginResponse {
     message: string
     token: string
+    userType:string
 }
 

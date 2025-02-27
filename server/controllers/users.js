@@ -79,14 +79,14 @@ const loginUser = async (req, res) => {
       });
     }
 
+    const userType = loginUser[0].dataValues.userType
     const user = {
       email: email,
       password: password
     }
 
     const token = jwt.sign(user, process.env.SECRET_KEY)
-
-    res.status(201).json({ message: `user is login`, token: token });
+    res.status(201).json({ message: `user is login`, token: token, userType: userType });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
