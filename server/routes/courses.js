@@ -1,4 +1,5 @@
 import express from 'express'
+import jwtAutherizationToken from '../middlewares/jwtAutherization.js'
 import { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse } from '../controllers/courses.js'
 const router = express.Router()
 
@@ -9,12 +10,12 @@ router.get('/', getCourses)
 router.get('/:id', getSingleCourse)
 
 // create course
-router.post('/', createCourse)
+router.post('/', jwtAutherizationToken, createCourse)
 
 // update course
-router.put('/:id', updateCourse)
+router.put('/:id', jwtAutherizationToken, updateCourse)
 
 // delete course 
-router.delete('/:id', deleteCourse)
+router.delete('/:id', jwtAutherizationToken, deleteCourse)
 
 export default router

@@ -5,6 +5,7 @@ import users from "./routes/users.js";
 import videos from "./routes/videos.js";
 import db from "./models/index.js";
 import cors from "cors";
+import jwtAutherizationToken from './middlewares/jwtAutherization.js'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -25,11 +26,11 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use("/api/courses", courses);
 app.use("/api/users", users);
-app.use("/api/videos", videos);
+app.use("/api/videos", jwtAutherizationToken, videos);
 
 // database conection with sequelize
 db.sequelize
-  .sync({alter:true})
+  .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
   })
