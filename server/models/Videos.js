@@ -12,6 +12,7 @@ export default (sequelize, Datatypes) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
+                isUrl: true, 
             },
         },
     });

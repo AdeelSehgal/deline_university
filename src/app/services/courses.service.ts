@@ -8,31 +8,31 @@ import { environment } from 'src/environments/environment.development';
 })
 export class CoursesService {
 
-  constructor(private http:HttpClient) { }
-  apiUrl=environment.courses
+  constructor(private http: HttpClient) { }
+  apiUrl = environment.url
 
-// get all courses
-  getCourses():Observable<Courses[]>{
-   return this.http.get<Courses[]>(`${this.apiUrl}`)
+  // get all courses
+  getCourses(): Observable<Courses[]> {
+    return this.http.get<Courses[]>(`${this.apiUrl}/api/courses`)
   }
 
   // get single course
-  getSingleCourses(id:number):Observable<Courses[]>{
-    return this.http.get<Courses[]>(`${this.apiUrl}/${id}`)
+  getSingleCourses(id: number): Observable<Courses[]> {
+    return this.http.get<Courses[]>(`${this.apiUrl}//api/courses/${id}`)
   }
 
-   // create course
-   createCourse(course:Courses):Observable<Courses[]>{
-    return this.http.post<Courses[]>(`${this.apiUrl}`,course)
+  // create course
+  createCourse(course: Courses): Observable<Courses[]> {
+    return this.http.post<Courses[]>(`${this.apiUrl}/api/courses`, course)
   }
 
   // update course
-   updateCourse(course:Courses,id:number):Observable<Courses[]>{
-    return this.http.put<Courses[]>(`${this.apiUrl}/${id}`,course)
+  updateCourse(course: Courses, id: number): Observable<Courses[]> {
+    return this.http.put<Courses[]>(`${this.apiUrl}/api/courses/${id}`, course)
   }
 
-   // delete course
-   deleteCourse(id:number):Observable<Courses[]>{
-    return this.http.delete<Courses[]>(`${this.apiUrl}/${id}`)
+  // delete course
+  deleteCourse(id: number): Observable<Courses[]> {
+    return this.http.delete<Courses[]>(`${this.apiUrl}/api/courses/${id}`)
   }
 }

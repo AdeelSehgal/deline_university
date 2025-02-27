@@ -6,9 +6,13 @@ const { Videos, sequelize } = db;
 const getVideos = async (req, res) => {
   try {
 
-    const allvideos = await sequelize.query('select * from Videos', {
-      type: QueryTypes.SELECT,
-    });
+    // sequelize 
+    const allvideos = await Videos.findAll();
+
+    // Raw query
+    // const allvideos = await sequelize.query('select * from Videos', {
+    //   type: QueryTypes.SELECT,
+    // });
 
     if (allvideos.length === 0) {
       return res.status(404).json({ message: "videos not found" });
@@ -83,6 +87,7 @@ const updatevideo = async (req, res) => {
       });
     }
 
+    // Sequelize
     const video = await Videos.update(
       {
         title: title,
@@ -93,6 +98,12 @@ const updatevideo = async (req, res) => {
         where: { id: id },
       }
     );
+
+    // Raw query
+    // const video = await sequelize.query('update Videos set title=?, link=?, CourseId=?, updatedAt=? where id=? ', {
+    //   type: QueryTypes.UPDATE,
+    //   replacements: [title, link, parseInt(CourseId), 'now()', id]
+    // });
 
     if (video == 1) {
       return res
@@ -114,7 +125,16 @@ const deleteVideo = async (req, res) => {
       return res.status(404).json({ message: "id is must" });
     }
 
+    // sequelize
     const video = await Videos.destroy({ where: { id: id } });
+
+
+    // Raw query
+    // const video = await sequelize.query('delete from Videos where id=? ', {
+    //   type: QueryTypes.DELETE,
+    //   replacements: [id]
+    // });
+
 
     if (video === 1) {
       return res

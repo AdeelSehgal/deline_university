@@ -15,9 +15,7 @@
       <span class="border p-2 rounded-circle px-3 videoNo">{{
         allVideos.indexOf(video) + 1
         }}</span>
-      <a href="">
-        <div class="fs-3 text-capitalize">{{ video.title }}</div>
-      </a>
+      <div class="fs-3 text-capitalize">{{ video.title }}</div>
     </div>
     <div class="d-flex gap-3">
       <i class="fa-solid fa-trash curson-pointer text-danger fs-5" (click)="deleteCourseVideo(video.id)"></i>
