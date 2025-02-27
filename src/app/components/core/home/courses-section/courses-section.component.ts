@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Courses } from 'src/app/interface/courses';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -13,6 +13,7 @@ export class CoursesSectionComponent implements OnInit {
   searchValue: string = ''
   allCourses: Courses[] = []
   renderedCourse: Courses[] = []
+  isFilter: boolean = false
   constructor(private courses: CoursesService, private router: Router) { }
 
   ngOnInit(): void {
@@ -22,13 +23,13 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   // get all courses
-  getCourses():void{
+  getCourses(): void {
     this.courses.getCourses().subscribe(
-      (res)=>{
-        this.allCourses=res;
-        this.renderedCourse=res
+      (res) => {
+        this.allCourses = res;
+        this.renderedCourse = res
       },
-      (err)=>console.log(err),
+      (err) => console.log(err),
       // ()=>console.log('done getting courses')
     )
   }
@@ -43,6 +44,7 @@ export class CoursesSectionComponent implements OnInit {
 
   onFilter(filterValue: string) {
     this.renderedCourse = this.allCourses.filter((item) => item.type === filterValue)
+    this.isFilter = true
   }
 
   onSearch() {
@@ -51,5 +53,11 @@ export class CoursesSectionComponent implements OnInit {
     } else {
       this.renderedCourse = this.renderedCourse.filter((item) => item.title.toLowerCase().includes(this.searchValue.toLowerCase()) || item.description.toLowerCase().includes(this.searchValue.toLowerCase()))
     }
+  }
+
+
+  clearFilter() {
+    this.renderedCourse = this.allCourses
+    this.isFilter = false
   }
 }

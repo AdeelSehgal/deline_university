@@ -12,8 +12,8 @@
           [image]="course.image">
         </app-course-card>
       </a>
-      <div class="d-flex gap-3 mt-3 coursebutton">
-        <button class="btn btn-warning w-50 text-white" routerLink="/addCourse" [queryParams]="{
+      <div class="d-flex gap-3 mt-2 coursebutton">
+        <button class="btn editButton w-50 " routerLink="/addCourse" [queryParams]="{
             courseId: course.id,
             name: course.title,
             type: course.type,
@@ -22,7 +22,7 @@
           }">
           Edit
         </button>
-        <button class="btn btn-danger w-50" (click)="deleteCourse(course.id)">
+        <button class="btn deleteButton w-50" (click)="deleteCourse(course.id)">
           Delete
         </button>
       </div>

@@ -20,6 +20,9 @@
         <button class="btn btn-primary filterButton" (click)="onFilter('designing')">
           Designing
         </button>
+        <button class="btn btn-danger fw-semibold " (click)="clearFilter()" *ngIf="isFilter">
+          Clear
+        </button>
       </div>
       <div class="col-5 d-flex justify-content-end gap-2 align-content-center mt-5 searchCon">
         <input (input)="searchInput($event)" type="text" placeholder="Search"
