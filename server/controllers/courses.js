@@ -33,6 +33,7 @@ const getSingleCourse = async (req, res) => {
 const createCourse = async (req, res) => {
   try {
     const { title, description, image, type } = req.body;
+    console.log(req.body)
     if (!title || !description || !image || !type) {
       return res
         .status(404)

@@ -11,7 +11,8 @@ export default (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'token is not valid' })
         }
-        res.user = user
+
+        req.user = user // sending data from middleware to another
         next()
     })
 }
