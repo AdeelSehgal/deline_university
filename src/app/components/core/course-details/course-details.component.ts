@@ -9,7 +9,6 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 export class CourseDetailsComponent {
 
   @Input() title: string = ''
-  @Input() duration: string = ''
   @Input() videoNo: string = ''
   @Input() selectedVideo: SafeResourceUrl = ''
   @Input() videoLink: string = ''

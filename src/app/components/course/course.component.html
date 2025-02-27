@@ -1,11 +1,10 @@
 <div class="container my-5">
-  <div class="row justify-content-start">
+  <div class="row justify-content-start" *ngIf="courseVideos.length > 0">
     <div class="col-3 videoDetails rounded-3">
       <app-course-details
-        *ngFor="let details of courseDetails"
+        *ngFor="let details of courseVideos"
         [title]="details.title"
-        [duration]="details.duration"
-        [videoNo]="details.id"
+        [videoNo]="(courseVideos.indexOf(details) + 1).toString()"
         [selectedVideo]="selectedVideo"
         [videoLink]="details.link"
         (click)="onClick(details.link)"
@@ -24,5 +23,11 @@
         class="rounded-3 courseVideo"
       ></iframe>
     </div>
+  </div>
+  <div
+    class="text-secondary fs-3 text-capitalize"
+    *ngIf="courseVideos.length === 0"
+  >
+    No videos yet
   </div>
 </div>
