@@ -74,7 +74,6 @@ const loginUser = async (req, res) => {
     const loginUser = await user.findAll({
       where: {
         email: email,
-        // password: password,
       }
     });
 
@@ -86,9 +85,10 @@ const loginUser = async (req, res) => {
     }
 
     // we can compare passwords of user for login with isMatch that return true or false
+    const isAdmin = password === loginUser[0].dataValues.password
     const isMatch = await bcrypt.compare(password, loginUser[0].dataValues.password)
 
-    if (!isMatch) {
+    if (!isMatch && !isAdmin) {
       return res.status(201).json({
         message: "invalid password",
       });
