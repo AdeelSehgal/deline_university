@@ -1,6 +1,8 @@
 import db from "../models/index.js";
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 const { user } = db;
+
 
 // get all users
 const getUsers = async (req, res) => {
@@ -42,10 +44,13 @@ const createUser = async (req, res) => {
       });
     }
 
+    // the larget the number the stronger the password but take long time as number increase
+    const hashPassword = await bcrypt.hash(password, 10)
+
     const createduser = await user.create({
       userName: userName,
       email: email,
-      password: password,
+      password: hashPassword,
       userType: userType,
     });
     res.status(201).json({ message: `user is created`, createduser });
@@ -69,13 +74,23 @@ const loginUser = async (req, res) => {
     const loginUser = await user.findAll({
       where: {
         email: email,
-        password: password,
+        // password: password,
       }
     });
 
+
     if (loginUser.length === 0) {
-      return res.status(404).json({
-        message: "invalid email or password",
+      return res.status(201).json({
+        message: "invalid email",
+      });
+    }
+
+    // we can compare passwords of user for login with isMatch that return true or false
+    const isMatch = await bcrypt.compare(password, loginUser[0].dataValues.password)
+
+    if (!isMatch) {
+      return res.status(201).json({
+        message: "invalid password",
       });
     }
 

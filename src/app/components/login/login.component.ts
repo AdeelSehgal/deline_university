@@ -42,16 +42,23 @@ export class LoginComponent implements OnInit {
   loginUser(user: LoginUser): void {
     this.users.loginUser(user).subscribe(
       (res) => {
-        localStorage.setItem('token', res.token)
-        localStorage.setItem('userType', res.userType)
+        if (res.message === 'user is login') {
+          localStorage.setItem('token', res.token)
+          localStorage.setItem('userType', res.userType)
+          alert('Login successful');
+          this.route.navigateByUrl('/')
+        } else if (res.message === "invalid email") {
+          alert(res.message);
+        } else if (res.message === "invalid password") {
+          alert(res.message);
+        }
       },
       (err) => {
         console.log(err.response);
-        if (err.status === 404) { alert('Invalid password or email') }
+        if (err.status === 404) { alert(err.message || 'Invalid password or email') }
       },
       () => {
-        alert('Login successful');
-        this.route.navigateByUrl('/')
+
       }
     )
   }
