@@ -1,24 +1,24 @@
 import { QueryTypes } from 'sequelize';
 import db from "../models/index.js";
-const { Videos, sequelize } = db;
+const { video, sequelize } = db;
 
 // get all videos
 const getVideos = async (req, res) => {
   try {
 
     // sequelize 
-    const allvideos = await Videos.findAll();
+    const allVideos = await video.findAll();
 
     // Raw query
     // const allvideos = await sequelize.query('select * from Videos', {
     //   type: QueryTypes.SELECT,
     // });
 
-    if (allvideos.length === 0) {
+    if (allVideos.length === 0) {
       return res.status(404).json({ message: "videos not found" });
     }
 
-    res.status(200).json(allvideos);
+    res.status(200).json(allVideos);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -30,7 +30,7 @@ const getSingleVideo = async (req, res) => {
     const id = req.params.id;
 
     //sequelize query
-    const video = await Videos.findAll({ where: { id: id } });
+    const singleVideo = await video.findAll({ where: { id: id } });
 
     // raw query
     // const video = await sequelize.query(`select * from Videos where id= ? `, {
@@ -38,10 +38,10 @@ const getSingleVideo = async (req, res) => {
     //   replacements: [id]
     // });
 
-    if (video.length === 0) {
+    if (singleVideo.length === 0) {
       return res.status(404).json({ message: "video not found" });
     }
-    res.status(200).json(video);
+    res.status(200).json(singleVideo);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -50,18 +50,20 @@ const getSingleVideo = async (req, res) => {
 // create video
 const createVideo = async (req, res) => {
   try {
-    const { title, link, CourseId } = req.body;
-    if (!title || !link || !CourseId) {
+
+    console.log(req.body)
+    const { title, link, courseId } = req.body;
+    if (!title || !link || !courseId) {
       return res.status(404).json({
-        message: "title and link is required",
+        message: "title, link and course id is required",
       });
     }
 
     // Sequelize
-    const createdvideo = await Videos.create({
+    const createdvideo = await video.create({
       title: title,
       link: link,
-      CourseId: parseInt(CourseId)
+      courseId: parseInt(courseId)
     });
 
     // raw query
@@ -79,20 +81,20 @@ const createVideo = async (req, res) => {
 // update video
 const updatevideo = async (req, res) => {
   try {
-    const { title, link, CourseId } = req.body;
+    const { title, link, courseId } = req.body;
     const id = req.params.id;
-    if (!title || !link || !id || !CourseId) {
+    if (!title || !link || !id || !courseId) {
       return res.status(404).json({
         message: "title, link ,video id and course id is required",
       });
     }
 
     // Sequelize
-    const video = await Videos.update(
+    const updatedVideo = await video.update(
       {
         title: title,
         link: link,
-        CourseId: CourseId
+        courseId: courseId
       },
       {
         where: { id: id },
@@ -105,7 +107,7 @@ const updatevideo = async (req, res) => {
     //   replacements: [title, link, parseInt(CourseId), 'now()', id]
     // });
 
-    if (video == 1) {
+    if (updatedVideo == 1) {
       return res
         .status(201)
         .json({ message: `video having id ${id} is updated` });
@@ -126,7 +128,7 @@ const deleteVideo = async (req, res) => {
     }
 
     // sequelize
-    const video = await Videos.destroy({ where: { id: id } });
+    const deletedVideo = await video.destroy({ where: { id: id } });
 
 
     // Raw query
@@ -136,7 +138,7 @@ const deleteVideo = async (req, res) => {
     // });
 
 
-    if (video === 1) {
+    if (deletedVideo === 1) {
       return res
         .status(201)
         .json({ message: `video having id ${id} is deleted` });
@@ -157,7 +159,7 @@ const getCourseVideos = async (req, res) => {
       return res.status(404).json({ message: "course id is required" });
     }
 
-    const allvideos = await Videos.findAll({ where: { CourseId: id } });
+    const allvideos = await video.findAll({ where: { courseId: id } });
 
     if (allvideos.length === 0) {
       return res.status(404).json({ message: "videos not found" });

@@ -1,17 +1,17 @@
 import db from "../models/index.js";
-const { Users } = db;
+const { user } = db;
 
 export default async (req, res, next) => {
 
     try {
-        const user = req.user
-        const autherizedUser = await Users.findOne({ where: { email: user.email, password: user.password } })
+        const userObject = req.user
+        const autherizedUser = await user.findOne({ where: { email: userObject.email, password: userObject.password } })
         const userType = autherizedUser.dataValues.userType
 
         if (userType === 'user') {
             return res.status(401).json({ message: 'you are not authorized to perform this task' })
         }
-        req.user = user
+        req.user = userObject
         next()
 
     } catch (error) {

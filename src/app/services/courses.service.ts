@@ -13,26 +13,26 @@ export class CoursesService {
 
   // get all courses
   getCourses(): Observable<Courses[]> {
-    return this.http.get<Courses[]>(`${this.apiUrl}/api/courses`)
+    return this.http.get<Courses[]>(`${this.apiUrl}/api/course`)
   }
 
   // get single course
   getSingleCourses(id: number): Observable<Courses[]> {
-    return this.http.get<Courses[]>(`${this.apiUrl}//api/courses/${id}`)
+    return this.http.get<Courses[]>(`${this.apiUrl}//api/course/${id}`)
   }
 
   // create course
   createCourse(course: Courses): Observable<Courses[]> {
-    return this.http.post<Courses[]>(`${this.apiUrl}/api/courses`, course)
+    return this.http.post<Courses[]>(`${this.apiUrl}/api/course`, course)
   }
 
   // update course
   updateCourse(course: Courses, id: number): Observable<Courses[]> {
-    return this.http.put<Courses[]>(`${this.apiUrl}/api/courses/${id}`, course)
+    return this.http.put<Courses[]>(`${this.apiUrl}/api/course/${id}`, course)
   }
 
   // delete course
   deleteCourse(id: number): Observable<Courses[]> {
-    return this.http.delete<Courses[]>(`${this.apiUrl}/api/courses/${id}`)
+    return this.http.delete<Courses[]>(`${this.apiUrl}/api/course/${id}`)
   }
 }

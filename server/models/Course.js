@@ -1,5 +1,5 @@
 export default (sequelize, Datatypes) => {
-    const Courses = sequelize.define("Courses", {
+    const Course = sequelize.define("course", {
         title: {
             type: Datatypes.STRING,
             allowNull: false,
@@ -30,9 +30,9 @@ export default (sequelize, Datatypes) => {
         },
     });
 
-    Courses.associate = function (models) {
-        Courses.hasMany(models.Videos, { foreignKey: { allowNull: false } }, { onDelete: 'CASCADE' })
+    Course.associate = function (models) {
+        Course.hasMany(models.video, { foreignKey: { allowNull: false } }, { onDelete: 'CASCADE' })
     };
 
-    return Courses;
+    return Course;
 };

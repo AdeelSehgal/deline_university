@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import courses from "./routes/courses.js";
-import users from "./routes/users.js";
-import videos from "./routes/videos.js";
+import course from "./routes/course.js";
+import user from "./routes/user.js";
+import video from "./routes/video.js";
 import db from "./models/index.js";
 import cors from "cors";
 import jwtAutherizationToken from './middlewares/jwtAutherization.js'
@@ -25,9 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // routes
-app.use("/api/courses", courses);
-app.use("/api/users", users);
-app.use("/api/videos", jwtAutherizationToken, userAuthorization, videos);
+app.use("/api/course", course);
+app.use("/api/user", user);
+app.use("/api/video", jwtAutherizationToken, userAuthorization, video);
 
 // database conection with sequelize
 db.sequelize

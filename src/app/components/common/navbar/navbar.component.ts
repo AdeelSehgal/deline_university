@@ -20,7 +20,7 @@ export class NavbarComponent implements DoCheck {
     const isLogout = confirm("Are you sure to logout")
     if (isLogout) {
       localStorage.removeItem('token')
-      localStorage.removeItem('users')
+      localStorage.removeItem('userType')
       this.router.navigateByUrl('')
     } else {
       return

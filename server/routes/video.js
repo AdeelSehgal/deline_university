@@ -1,5 +1,5 @@
 import express from 'express'
-import { getVideos, getSingleVideo, createVideo, updatevideo, deleteVideo, getCourseVideos } from '../controllers/videos.js'
+import { getVideos, getSingleVideo, createVideo, updatevideo, deleteVideo, getCourseVideos } from '../controllers/video.js'
 const router = express.Router()
 
 // get all videos

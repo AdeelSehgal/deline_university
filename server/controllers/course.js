@@ -1,10 +1,10 @@
 import db from "../models/index.js";
-const { Courses } = db;
+const { course } = db;
 
 // get all courses
 const getCourses = async (req, res) => {
   try {
-    const allCourses = await Courses.findAll();
+    const allCourses = await course.findAll();
     if (allCourses.length === 0) {
       return res.status(404).json({ message: "courses not found" });
     }
@@ -18,12 +18,12 @@ const getCourses = async (req, res) => {
 const getSingleCourse = async (req, res) => {
   try {
     const id = req.params.id;
-    const course = await Courses.findAll({ where: { id: id } });
+    const singleCourse = await course.findAll({ where: { id: id } });
 
-    if (course.length === 0) {
+    if (singleCourse.length === 0) {
       return res.status(404).json({ message: "course not found" });
     }
-    res.status(200).json(course);
+    res.status(200).json(singleCourse);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -33,14 +33,13 @@ const getSingleCourse = async (req, res) => {
 const createCourse = async (req, res) => {
   try {
     const { title, description, image, type } = req.body;
-    console.log(req.body)
     if (!title || !description || !image || !type) {
       return res
         .status(404)
         .json({ message: "title, description, image and type is required" });
     }
 
-    const createdCourse = await Courses.create({
+    const createdCourse = await course.create({
       title: title,
       description: description,
       image: image,
@@ -63,14 +62,14 @@ const updateCourse = async (req, res) => {
       });
     }
 
-    const course = await Courses.update(
+    const updatedCourse = await course.update(
       { title: title, description: description, image: image, type: type },
       {
         where: { id: id },
       }
     );
 
-    if (course == 1) {
+    if (updatedCourse == 1) {
       return res
         .status(201)
         .json({ message: `course having id ${id} is updated` });
@@ -89,10 +88,10 @@ const deleteCourse = async (req, res) => {
     if (!id) {
       return res.status(404).json({ message: "id is must" });
     }
-    
-    const course = await Courses.destroy({ where: { id: id } });
 
-    if (course === 1) {
+    const deletedCourse = await course.destroy({ where: { id: id } });
+
+    if (deletedCourse === 1) {
       return res
         .status(201)
         .json({ message: `course having id ${id} is deleted` });

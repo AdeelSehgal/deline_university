@@ -1,11 +1,11 @@
 import db from "../models/index.js";
 import jwt from 'jsonwebtoken'
-const { Users } = db;
+const { user } = db;
 
 // get all users
 const getUsers = async (req, res) => {
   try {
-    const allusers = await Users.findAll();
+    const allusers = await user.findAll();
 
     if (allusers.length === 0) {
       return res.status(404).json({ message: "users not found" });
@@ -21,12 +21,12 @@ const getUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await Users.findAll({ where: { id: id } });
+    const singleUser = await user.findAll({ where: { id: id } });
 
-    if (user.length === 0) {
+    if (singleUser.length === 0) {
       return res.status(404).json({ message: "user not found" });
     }
-    res.status(200).json(user);
+    res.status(200).json(singleUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -42,7 +42,7 @@ const createUser = async (req, res) => {
       });
     }
 
-    const createduser = await Users.create({
+    const createduser = await user.create({
       userName: userName,
       email: email,
       password: password,
@@ -66,7 +66,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const loginUser = await Users.findAll({
+    const loginUser = await user.findAll({
       where: {
         email: email,
         password: password,
@@ -80,12 +80,12 @@ const loginUser = async (req, res) => {
     }
 
     const userType = loginUser[0].dataValues.userType
-    const user = {
+    const userObject = {
       email: email,
       password: password
     }
 
-    const token = jwt.sign(user, process.env.SECRET_KEY)
+    const token = jwt.sign(userObject, process.env.SECRET_KEY)
     res.status(201).json({ message: `user is login`, token: token, userType: userType });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -104,7 +104,7 @@ const updateUser = async (req, res) => {
       });
     }
 
-    const user = await Users.update(
+    const updatedUser = await user.update(
       {
         userName: userName,
         email: email,
@@ -116,7 +116,7 @@ const updateUser = async (req, res) => {
       }
     );
 
-    if (user == 1) {
+    if (updatedUser == 1) {
       return res
         .status(201)
         .json({ message: `user having id ${id} is updated` });
@@ -136,9 +136,9 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "id is must" });
     }
 
-    const user = await Users.destroy({ where: { id: id } });
+    const deleteUser = await user.destroy({ where: { id: id } });
 
-    if (user === 1) {
+    if (deleteUser === 1) {
       return res
         .status(201)
         .json({ message: `user having id ${id} is deleted` });

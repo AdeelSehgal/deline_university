@@ -13,10 +13,10 @@ export class UsersService {
 
     // create User
     createUser(User: Users): Observable<Users[]> {
-        return this.http.post<Users[]>(`${this.apiUrl}/api/users`, User)
+        return this.http.post<Users[]>(`${this.apiUrl}/api/user`, User)
     }
     // login User
     loginUser(User: LoginUser): Observable<LoginResponse> {
-        return this.http.post<LoginResponse>(`${this.apiUrl}/api/users/login`, User)
+        return this.http.post<LoginResponse>(`${this.apiUrl}/api/user/login`, User)
     }
 }
