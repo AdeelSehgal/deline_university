@@ -39,9 +39,7 @@ export class CoursesSectionComponent implements OnInit, OnDestroy {
           alert(err.error.message || 'something wrong happen')
         }, 100);
       },
-      () => {
-        this.loader = false
-      }
+      () => this.loader = false
     )
   }
 

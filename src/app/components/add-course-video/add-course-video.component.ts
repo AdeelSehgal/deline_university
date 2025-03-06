@@ -65,9 +65,14 @@ export class AddCourseVideoComponent {
     this.courses.getCourses().subscribe(
       (res) => {
         this.allCourses = res;
-        console.log(this.allCourses)
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        if (err.error.message === 'courses not found') {
+          this.allCourses = []
+        }
+        alert(err.error.message || 'something wrong happen')
+      }
     )
   }
 
@@ -77,7 +82,10 @@ export class AddCourseVideoComponent {
       (res) => {
         // console.log(res)
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        alert(err.error.message || 'something wrong happen')
+      },
       () => {
         alert('Successfully add video');
         this.router.navigateByUrl(`/courseVideos/${this.addCourseVideoForm.value.selectedCourse}`)
@@ -90,7 +98,10 @@ export class AddCourseVideoComponent {
     this.videos.updateVideo(updatedVideo, id).subscribe(
       (res) => {
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        alert(err.error.message || 'something wrong happen')
+      },
       () => {
         alert('Video is updated.');
         this.router.navigateByUrl(`/courseVideos/${this.courseId}`)

@@ -27,6 +27,9 @@ export class AllAddedCoursesComponent implements OnInit {
       },
       (err) => {
         console.log(err)
+        if (err.error.message === 'courses not found') {
+          this.allCourses = []
+        }
         this.loader = false
         setTimeout(() => {
           alert(err.error.message || 'something wrong happen')
@@ -47,8 +50,11 @@ export class AllAddedCoursesComponent implements OnInit {
           (res) => {
             console.log(res)
           },
-          (err) => console.log(err),
-          () => { this.getCourses() }
+          (err) => {
+            console.log(err);
+            alert(err.error.message || 'something wrong happen')
+          },
+          () => this.getCourses()
         )
       } else {
         return

@@ -12,7 +12,7 @@ export class CourseVideosComponent implements OnInit {
 
   courseId: number | null = null
   allVideos: Videos[] = []
-  loader:boolean=true
+  loader: boolean = true
 
   constructor(private activatedRoute: ActivatedRoute, private videos: VideosService) { }
 
@@ -20,7 +20,7 @@ export class CourseVideosComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseId = parseInt(params.get('id') || '')
     })
-    
+
     if (this.courseId) {
       this.getcourseVideos(this.courseId)
     }
@@ -31,9 +31,18 @@ export class CourseVideosComponent implements OnInit {
     this.videos.getCourseVideos(id).subscribe(
       (res) => {
         this.allVideos = res;
-        this.loader=false
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        if (err.error.message === 'videos not found') {
+          this.allVideos = []
+        }
+        this.loader = false
+        setTimeout(() => {
+          alert(err.error.message || 'something wrong happen')
+        }, 100);
+      },
+      () => this.loader = false
     )
   }
 
@@ -47,7 +56,10 @@ export class CourseVideosComponent implements OnInit {
           (res) => {
             console.log(res)
           },
-          (err) => console.log(err),
+          (err) => {
+            console.log(err)
+            alert(err.error.message || 'something wrong happen')
+          },
           () => {
             if (this.courseId) {
               this.getcourseVideos(this.courseId)
@@ -57,8 +69,6 @@ export class CourseVideosComponent implements OnInit {
       } else {
         return
       }
-    } else {
-      alert('video id is required')
     }
   }
 }

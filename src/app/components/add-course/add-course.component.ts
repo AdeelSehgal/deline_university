@@ -70,7 +70,10 @@ export class AddCourseComponent implements OnInit {
       (res) => {
         // console.log(res)
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err);
+        alert(err.error.message || 'something wrong happen')
+      },
       () => {
         alert('Successfully add course. Now you can add videos to your course');
         this.router.navigateByUrl('/allAddedCourses')
@@ -78,13 +81,15 @@ export class AddCourseComponent implements OnInit {
     )
   }
 
-
   // update course
   updateCourse(updatedCourse: Courses, id: number): void {
     this.courses.updateCourse(updatedCourse, id).subscribe(
       (res) => {
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err);
+        alert(err.error.message || 'something wrong happen')
+      },
       () => {
         alert('Course is updated.');
         this.router.navigateByUrl('/allAddedCourses')

@@ -47,15 +47,17 @@ export class CourseComponent implements OnInit, OnDestroy {
           this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.courseVideos[0].link)
           this.selectedVideo = this.courseVideos[0].link
         }
-        this.loader = false
       },
       (err) => {
         console.log(err)
-        alert(err.error || 'something wrong happens')
+        this.loader = false
+        setTimeout(() => {
+          alert(err.error.message || 'something wrong happen')
+        }, 100);
       },
+      () => this.loader = false
     )
   }
-
 
   ngOnDestroy(): void {
     this.routeobject.unsubscribe()

@@ -24,11 +24,12 @@ export class MyInterceptorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log('error' + error.error.message)
-        if (error.error.message ==='Unauthenticated.') {
+        if (error.error.message === 'Unauthenticated.') {
           localStorage.removeItem('token')
           localStorage.removeItem('userType')
           alert('Session is expired please login again')
           this.route.navigateByUrl('/login')
+          return throwError(() => new Error('token: expire'))
         }
         return throwError(() => error);
       })

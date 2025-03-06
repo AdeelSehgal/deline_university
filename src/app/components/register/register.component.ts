@@ -83,12 +83,7 @@ export class RegisterComponent implements OnInit {
       },
       (err) => {
         console.log(err)
-        if (err.error.message) {
-          alert(err.error.message)
-        }
-        else {
-          alert(err.error)
-        }
+        alert(err.error.message || 'something went wrong')
       },
       () => {
         alert('Successfully register');
