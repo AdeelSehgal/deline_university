@@ -113,8 +113,7 @@ export class AddCourseVideoComponent {
     const addvideo = {
       title: this.addCourseVideoForm.value.videoTitle || '',
       link: this.addCourseVideoForm.value.videoLink || '',
-      // courseId: parseInt(this.addCourseVideoForm.value.selectedCourse || '')
-      courseId: this.addCourseVideoForm.value.selectedCourse || ''
+      course_id: this.addCourseVideoForm.value.selectedCourse || ''
     }
 
     if (this.isUpdate && this.videoId) {

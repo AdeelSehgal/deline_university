@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     const addUser = {
-      userName: this.registrationForm.value.userName,
+      user_name: this.registrationForm.value.userName,
       email: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
       userType: 'user',
