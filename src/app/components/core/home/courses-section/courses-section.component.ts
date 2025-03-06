@@ -11,6 +11,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 export class CoursesSectionComponent implements OnInit {
 
   searchValue: string = ''
+  loader:boolean=true
   allCourses: Courses[] = []
   renderedCourse: Courses[] = []
   isFilter: boolean = false
@@ -28,6 +29,7 @@ export class CoursesSectionComponent implements OnInit {
       (res) => {
         this.allCourses = res;
         this.renderedCourse = res
+        this.loader=false
       },
       (err) => console.log(err),
       // ()=>console.log('done getting courses')

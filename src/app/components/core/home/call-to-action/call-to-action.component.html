@@ -1,12 +1,20 @@
-<div class="rounded-3 con my-5  ">
-<div class="row justify-content-around  align-content-center ">
-    <div class="col-5  d-flex flex-column justify-content-center  p-5 ">
-        <h3 class="fs-1 fw-bold">Lets Find Your Perfect Online Course Today</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, repudiandae dolores.  at itaque.?</p>
-        <app-button text="Start Learning" bgColor="#0b1d42" textColor="white"></app-button>
+<div class="rounded-3 con my-5">
+  <div class="row justify-content-around align-content-center">
+    <div class="col-5 d-flex flex-column justify-content-center p-5">
+      <h3 class="fs-1 fw-bold">Lets Find Your Perfect Online Course Today</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est,
+        repudiandae dolores. at itaque.?
+      </p>
+      <app-button
+        *ngIf="!isUserLogin"
+        text="Start Learning"
+        bgColor="#0b1d42"
+        textColor="white"
+      ></app-button>
     </div>
-    <div class="col-5  d-flex justify-content-end align-content-end imgCon w-50 ">
-        <img src="assets/low-angle-graduated-students.png" alt="" class="img1   ">
+    <div class="col-5 d-flex justify-content-end align-content-end imgCon w-50">
+      <img src="assets/low-angle-graduated-students.png" alt="" class="img1" />
     </div>
-</div>
+  </div>
 </div>

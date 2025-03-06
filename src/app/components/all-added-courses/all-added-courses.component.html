@@ -1,4 +1,6 @@
-<div class="container my-5">
+<app-loader *ngIf="loader"></app-loader>
+
+<div class="container my-5" *ngIf="!loader">
   <div class="mb-4 container d-flex justify-content-between">
     <h1 class="text-start ps-4 fs-2">Courses</h1>
     <div [routerLink]="'/addCourse'">
@@ -8,18 +10,26 @@
   <div class="row">
     <div class="col-4 mt-5" *ngFor="let course of allCourses">
       <a [routerLink]="['/courseVideos', course.id]" class="">
-        <app-course-card *ngIf="allCourses.length > 0" [title]="course.title" [des]="course.description"
-          [image]="course.image">
+        <app-course-card
+          *ngIf="allCourses.length > 0"
+          [title]="course.title"
+          [des]="course.description"
+          [image]="course.image"
+        >
         </app-course-card>
       </a>
       <div class="d-flex gap-3 mt-2 coursebutton">
-        <button class="btn editButton w-50 " routerLink="/addCourse" [queryParams]="{
+        <button
+          class="btn editButton w-50"
+          routerLink="/addCourse"
+          [queryParams]="{
             courseId: course.id,
             name: course.title,
             type: course.type,
             description: course.description,
             image: course.image
-          }">
+          }"
+        >
           Edit
         </button>
         <button class="btn deleteButton w-50" (click)="deleteCourse(course.id)">

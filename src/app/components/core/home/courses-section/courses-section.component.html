@@ -1,4 +1,6 @@
-<div class="container">
+<app-loader *ngIf="loader"></app-loader>
+
+<div class="container" *ngIf="!loader">
   <div class="">
     <div class="d-flex justify-content-center">
       <app-bar-heading text="Our Courses" bgColor="#de964624" textColor="orange"></app-bar-heading>

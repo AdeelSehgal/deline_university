@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./call-to-action.component.css']
 })
 export class CallToActionComponent {
+  isUserLogin: boolean = false
+
+  ngDoCheck(): void {
+    const localData = localStorage.getItem('token')
+    this.isUserLogin = localData ? true : false
+  }
 
 }

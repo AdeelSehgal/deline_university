@@ -1,4 +1,5 @@
-<div class="container">
+<app-loader *ngIf="loader"></app-loader>
+<div class="container" *ngIf="!loader">
   <div class="row mt-5">
     <div class="mb-4 container d-flex justify-content-between">
       <h1 class="text-start ps-4 fs-3">Course Videos</h1>

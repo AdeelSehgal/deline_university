@@ -10,6 +10,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 export class AllAddedCoursesComponent implements OnInit {
 
   allCourses: Courses[] = []
+  loader: boolean = true
 
   constructor(private courses: CoursesService) { }
 
@@ -23,6 +24,7 @@ export class AllAddedCoursesComponent implements OnInit {
     this.courses.getCourses().subscribe(
       (res) => {
         this.allCourses = res;
+        this.loader = false
       },
       (err) => console.log(err),
     )

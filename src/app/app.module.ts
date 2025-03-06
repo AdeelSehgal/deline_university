@@ -26,6 +26,7 @@ import { AllAddedCoursesComponent } from './components/all-added-courses/all-add
 import { CourseVideosComponent } from './components/course-videos/course-videos.component';
 import { CourseVideoDetailsComponent } from './components/core/courseVideos/course-video-details/course-video-details.component';
 import { MyInterceptorInterceptor } from './interceptor/my-interceptor.interceptor';
+import { LoaderComponent } from './components/common/loader/loader.component';
 
 
 
@@ -52,7 +53,8 @@ import { MyInterceptorInterceptor } from './interceptor/my-interceptor.intercept
     AddCourseComponent,
     AllAddedCoursesComponent,
     CourseVideosComponent,
-    CourseVideoDetailsComponent
+    CourseVideoDetailsComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class CourseVideosComponent implements OnInit {
 
   courseId: number | null = null
   allVideos: Videos[] = []
+  loader:boolean=true
 
   constructor(private activatedRoute: ActivatedRoute, private videos: VideosService) { }
 
@@ -19,7 +20,7 @@ export class CourseVideosComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseId = parseInt(params.get('id') || '')
     })
-    console.log(this.courseId)
+    
     if (this.courseId) {
       this.getcourseVideos(this.courseId)
     }
@@ -30,6 +31,7 @@ export class CourseVideosComponent implements OnInit {
     this.videos.getCourseVideos(id).subscribe(
       (res) => {
         this.allVideos = res;
+        this.loader=false
       },
       (err) => console.log(err),
     )

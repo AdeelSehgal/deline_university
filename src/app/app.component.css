@@ -1,3 +1,5 @@
-.main{
-    position: absolute;
+.main {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
 }
