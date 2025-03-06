@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(8)]],
   })
 
-
   get email() {
     return this.loginForm.get('email')
   }
@@ -47,7 +46,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userType', res.userType)
           alert('Login successful');
           this.route.navigateByUrl('/')
-          console.log(res.message)
         }
         else {
           alert(res);
