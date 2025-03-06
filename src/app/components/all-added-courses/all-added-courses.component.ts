@@ -24,9 +24,17 @@ export class AllAddedCoursesComponent implements OnInit {
     this.courses.getCourses().subscribe(
       (res) => {
         this.allCourses = res;
-        this.loader = false
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        this.loader = false
+        setTimeout(() => {
+          alert(err.error.message || 'something wrong happen')
+        }, 100);
+      },
+      () => {
+        this.loader = false
+      }
     )
   }
 

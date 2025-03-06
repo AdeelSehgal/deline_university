@@ -32,9 +32,14 @@ export class CoursesSectionComponent implements OnInit, OnDestroy {
         this.allCourses = res;
         this.renderedCourse = res
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        this.loader = false
+        setTimeout(() => {
+          alert(err.error.message || 'something wrong happen')
+        }, 100);
+      },
       () => {
-        console.log('done getting courses')
         this.loader = false
       }
     )
