@@ -79,7 +79,7 @@ const loginUser = async (req, res) => {
 
 
     if (loginUser.length === 0) {
-      return res.status(201).json({
+      return res.status(200).json({
         message: "invalid email",
       });
     }
@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, loginUser[0].dataValues.password)
 
     if (!isMatch && !isAdmin) {
-      return res.status(201).json({
+      return res.status(200).json({
         message: "invalid password",
       });
     }

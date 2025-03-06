@@ -4,10 +4,6 @@ import { Router } from '@angular/router';
 import { Users } from 'src/app/interface/users';
 import { UsersService } from 'src/app/services/users.service';
 
-type User = {
-  email: string,
-  password: string,
-}
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,7 +14,6 @@ export class RegisterComponent implements OnInit {
   passwordView: boolean = false
   confirmPasswordView: boolean = false
   temprary: string = 'test@gamil.com'
-  // users: User[] = []  
   registerEmail: string = ''
   registerPassword: string = ''
 
@@ -86,7 +81,15 @@ export class RegisterComponent implements OnInit {
       (res) => {
         // console.log(res)
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        if (err.error.message) {
+          alert(err.error.message)
+        }
+        else {
+          alert(err.error)
+        }
+      },
       () => {
         alert('Successfully register');
         this.route.navigateByUrl('/login')

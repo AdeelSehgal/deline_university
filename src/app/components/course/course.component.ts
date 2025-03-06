@@ -16,7 +16,7 @@ export class CourseComponent implements OnInit, OnDestroy {
   courseVideos: Videos[] = []
   selectedVideo: string = ''
   videoSrc: SafeResourceUrl = ''
-  loader:boolean=true
+  loader: boolean = true
 
   constructor(private activatedRoute: ActivatedRoute, private videos: VideosService, private sanitizer: DomSanitizer) { }
 
@@ -41,12 +41,18 @@ export class CourseComponent implements OnInit, OnDestroy {
   getcourseVideos(id: number): void {
     this.videos.getCourseVideos(id).subscribe(
       (res) => {
+        console.log(res)
         this.courseVideos = res;
-        this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.courseVideos[0].link)
-        this.selectedVideo = this.courseVideos[0].link
-        this.loader=false
+        if (this.courseVideos.length > 0) {
+          this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.courseVideos[0].link)
+          this.selectedVideo = this.courseVideos[0].link
+        }
+        this.loader = false
       },
-      (err) => console.log(err),
+      (err) => {
+        console.log(err)
+        alert(err.error || 'something wrong happens')
+      },
     )
   }
 

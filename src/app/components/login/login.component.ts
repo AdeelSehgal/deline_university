@@ -47,15 +47,21 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userType', res.userType)
           alert('Login successful');
           this.route.navigateByUrl('/')
-        } else if (res.message === "invalid email") {
-          alert(res.message);
-        } else if (res.message === "invalid password") {
-          alert(res.message);
+          console.log(res.message)
+        }
+        else {
+          alert(res);
+          console.log(res)
         }
       },
       (err) => {
-        console.log(err.response);
-        if (err.status === 404) { alert(err.message || 'Invalid password or email') }
+        console.log(err)
+        if (err.error.message) {
+          alert(err.error.message)
+        }
+        else {
+          alert(err.error)
+        }
       },
       () => {
 

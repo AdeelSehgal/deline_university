@@ -1,5 +1,6 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 import { Courses } from 'src/app/interface/courses';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -8,13 +9,14 @@ import { CoursesService } from 'src/app/services/courses.service';
   templateUrl: './courses-section.component.html',
   styleUrls: ['./courses-section.component.css']
 })
-export class CoursesSectionComponent implements OnInit {
+export class CoursesSectionComponent implements OnInit, OnDestroy {
 
   searchValue: string = ''
-  loader:boolean=true
+  loader: boolean = true
   allCourses: Courses[] = []
   renderedCourse: Courses[] = []
   isFilter: boolean = false
+  dataSubscription: Subscription | undefined
   constructor(private courses: CoursesService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,14 +27,16 @@ export class CoursesSectionComponent implements OnInit {
 
   // get all courses
   getCourses(): void {
-    this.courses.getCourses().subscribe(
+    this.dataSubscription = this.courses.getCourses().subscribe(
       (res) => {
         this.allCourses = res;
         this.renderedCourse = res
-        this.loader=false
       },
       (err) => console.log(err),
-      // ()=>console.log('done getting courses')
+      () => {
+        console.log('done getting courses')
+        this.loader = false
+      }
     )
   }
 
@@ -57,9 +61,12 @@ export class CoursesSectionComponent implements OnInit {
     }
   }
 
-
   clearFilter() {
     this.renderedCourse = this.allCourses
     this.isFilter = false
+  }
+
+  ngOnDestroy(): void {
+    this.dataSubscription?.unsubscribe()
   }
 }
