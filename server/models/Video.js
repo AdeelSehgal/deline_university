@@ -1,10 +1,12 @@
 export default (sequelize, Datatypes) => {
-    const Video = sequelize.define("video", {
+    const Video = sequelize.define("videos", {
         title: {
             type: Datatypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 40,
+                min: 3,
             },
         },
         link: {
@@ -15,11 +17,15 @@ export default (sequelize, Datatypes) => {
                 isUrl: true,
             },
         },
-    });
+    },
+        {
+            timestamps: false,
+        },
+    );
 
-    Video.associate = function (models) {
-        Video.belongsTo(models.course, { onDelete: 'CASCADE' })
-    };
+    // Video.associate = function (models) {
+    //     Video.belongsTo(models.courses, { onDelete: 'CASCADE' })
+    // };
 
     return Video;
 };

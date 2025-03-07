@@ -1,10 +1,12 @@
 export default (sequelize, Datatypes) => {
-    const Course = sequelize.define("course", {
+    const Course = sequelize.define("courses", {
         title: {
             type: Datatypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 20,
+                min: 3,
             },
         },
         description: {
@@ -12,6 +14,8 @@ export default (sequelize, Datatypes) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 255,
+                min: 3,
             },
         },
         image: {
@@ -26,12 +30,18 @@ export default (sequelize, Datatypes) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 20,
+                min: 3,
             },
         },
-    });
+    },
+        {
+            timestamps: false,
+        },
+    );
 
     Course.associate = function (models) {
-        Course.hasMany(models.video, { foreignKey: { allowNull: false } }, { onDelete: 'CASCADE' })
+        Course.hasMany(models.videos, { foreignKey: { name: 'course_id', allowNull: false } }, { onDelete: 'CASCADE' })
     };
 
     return Course;

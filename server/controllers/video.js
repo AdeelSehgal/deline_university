@@ -1,13 +1,13 @@
 import { QueryTypes } from 'sequelize';
 import db from "../models/index.js";
-const { video, sequelize } = db;
+const { videos, sequelize } = db;
 
 // get all videos
 const getVideos = async (req, res) => {
   try {
 
     // sequelize 
-    const allVideos = await video.findAll();
+    const allVideos = await videos.findAll();
 
     // Raw query
     // const allvideos = await sequelize.query('select * from Videos', {
@@ -30,7 +30,7 @@ const getSingleVideo = async (req, res) => {
     const id = req.params.id;
 
     //sequelize query
-    const singleVideo = await video.findAll({ where: { id: id } });
+    const singleVideo = await videos.findAll({ where: { id: id } });
 
     // raw query
     // const video = await sequelize.query(`select * from Videos where id= ? `, {
@@ -52,18 +52,18 @@ const createVideo = async (req, res) => {
   try {
 
     console.log(req.body)
-    const { title, link, courseId } = req.body;
-    if (!title || !link || !courseId) {
+    const { title, link, course_id } = req.body;
+    if (!title || !link || !course_id) {
       return res.status(404).json({
-        message: "title, link and course id is required",
+        message: "title, link and course_id is required",
       });
     }
 
     // Sequelize
-    const createdvideo = await video.create({
+    const createdvideo = await videos.create({
       title: title,
       link: link,
-      courseId: parseInt(courseId)
+      course_id: parseInt(course_id)
     });
 
     // raw query
@@ -81,20 +81,20 @@ const createVideo = async (req, res) => {
 // update video
 const updatevideo = async (req, res) => {
   try {
-    const { title, link, courseId } = req.body;
+    const { title, link, course_id } = req.body;
     const id = req.params.id;
-    if (!title || !link || !id || !courseId) {
+    if (!title || !link || !id || !course_id) {
       return res.status(404).json({
-        message: "title, link ,video id and course id is required",
+        message: "title, link ,video id and course_id is required",
       });
     }
 
     // Sequelize
-    const updatedVideo = await video.update(
+    const updatedVideo = await videos.update(
       {
         title: title,
         link: link,
-        courseId: courseId
+        course_id: parseInt(course_id)
       },
       {
         where: { id: id },
@@ -123,13 +123,8 @@ const deleteVideo = async (req, res) => {
   try {
     const id = req.params.id;
 
-    if (!id) {
-      return res.status(404).json({ message: "id is must" });
-    }
-
     // sequelize
-    const deletedVideo = await video.destroy({ where: { id: id } });
-
+    const deletedVideo = await videos.destroy({ where: { id: id } });
 
     // Raw query
     // const video = await sequelize.query('delete from Videos where id=? ', {
@@ -140,7 +135,7 @@ const deleteVideo = async (req, res) => {
 
     if (deletedVideo === 1) {
       return res
-        .status(201)
+        .status(200)
         .json({ message: `video having id ${id} is deleted` });
     }
     res.status(404).json({ message: `video having id ${id} is not found` });
@@ -159,7 +154,7 @@ const getCourseVideos = async (req, res) => {
       return res.status(404).json({ message: "course id is required" });
     }
 
-    const allvideos = await video.findAll({ where: { courseId: id } });
+    const allvideos = await videos.findAll({ where: { course_id: id } });
 
     if (allvideos.length === 0) {
       return res.status(404).json({ message: "videos not found" });

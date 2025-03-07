@@ -31,7 +31,7 @@ app.use("/api/video", jwtAutherizationToken, userAuthorization, video);
 
 // database conection with sequelize
 db.sequelize
-  .sync({ alter: true })
+  .sync({ force:false})
   .then(() => {
     app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
   })

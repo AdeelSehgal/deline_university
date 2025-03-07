@@ -1,10 +1,10 @@
 import db from "../models/index.js";
-const { course } = db;
+const { courses } = db;
 
 // get all courses
 const getCourses = async (req, res) => {
   try {
-    const allCourses = await course.findAll();
+    const allCourses = await courses.findAll();
     if (allCourses.length === 0) {
       return res.status(404).json({ message: "courses not found" });
     }
@@ -18,7 +18,7 @@ const getCourses = async (req, res) => {
 const getSingleCourse = async (req, res) => {
   try {
     const id = req.params.id;
-    const singleCourse = await course.findAll({ where: { id: id } });
+    const singleCourse = await courses.findAll({ where: { id: id } });
 
     if (singleCourse.length === 0) {
       return res.status(404).json({ message: "course not found" });
@@ -39,7 +39,7 @@ const createCourse = async (req, res) => {
         .json({ message: "title, description, image and type is required" });
     }
 
-    const createdCourse = await course.create({
+    const createdCourse = await courses.create({
       title: title,
       description: description,
       image: image,
@@ -62,7 +62,7 @@ const updateCourse = async (req, res) => {
       });
     }
 
-    const updatedCourse = await course.update(
+    const updatedCourse = await courses.update(
       { title: title, description: description, image: image, type: type },
       {
         where: { id: id },
@@ -84,16 +84,11 @@ const updateCourse = async (req, res) => {
 const deleteCourse = async (req, res) => {
   try {
     const id = req.params.id;
-
-    if (!id) {
-      return res.status(404).json({ message: "id is must" });
-    }
-
-    const deletedCourse = await course.destroy({ where: { id: id } });
+    const deletedCourse = await courses.destroy({ where: { id: id } });
 
     if (deletedCourse === 1) {
       return res
-        .status(201)
+        .status(200)
         .json({ message: `course having id ${id} is deleted` });
     }
     res.status(404).json({ message: `course having id ${id} is not found` });

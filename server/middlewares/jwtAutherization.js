@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 export default (req, res, next) => {
-    const authHeader = req.headers['authorization'] // authorization should be small
+    const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     if (!token) {
         return res.status(401).json({ message: 'token is undefined' })
@@ -11,7 +11,6 @@ export default (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'token is not valid' })
         }
-
         req.user = user // sending data from middleware to another
         next()
     })

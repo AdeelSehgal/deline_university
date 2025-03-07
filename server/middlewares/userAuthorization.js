@@ -1,11 +1,11 @@
 import db from "../models/index.js";
-const { user } = db;
+const { users } = db;
 
 export default async (req, res, next) => {
 
     try {
         const userObject = req.user
-        const autherizedUser = await user.findOne({ where: { email: userObject.email, password: userObject.password } })
+        const autherizedUser = await users.findOne({ where: { email: userObject.email} })
         const userType = autherizedUser.dataValues.userType
 
         if (userType === 'user') {

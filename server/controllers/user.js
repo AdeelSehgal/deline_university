@@ -1,16 +1,15 @@
 import db from "../models/index.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-const { user } = db;
+const { users } = db;
 
 
 // get all users
 const getUsers = async (req, res) => {
   try {
-    const allusers = await user.findAll();
-
+    const allusers = await users.findAll();
     if (allusers.length === 0) {
-      return res.status(404).json({ message: "users not found" });
+      return res.status(404).json({ message: "Users not found" });
     }
 
     res.status(200).json(allusers);
@@ -23,10 +22,10 @@ const getUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const singleUser = await user.findAll({ where: { id: id } });
+    const singleUser = await users.findAll({ where: { id: id } });
 
     if (singleUser.length === 0) {
-      return res.status(404).json({ message: "user not found" });
+      return res.status(404).json({ message: `user having id ${id} not found` });
     }
     res.status(200).json(singleUser);
   } catch (error) {
@@ -37,18 +36,18 @@ const getSingleUser = async (req, res) => {
 // create user
 const createUser = async (req, res) => {
   try {
-    const { userName, email, password, userType } = req.body;
-    if (!userName || !email || !password || !userType) {
+    const { user_name, email, password, userType } = req.body;
+    if (!user_name || !email || !password || !userType) {
       return res.status(404).json({
-        message: "userName, email, password and userType is required",
+        message: "user_name, email, password and userType is required",
       });
     }
 
     // the larget the number the stronger the password but take long time as number increase
     const hashPassword = await bcrypt.hash(password, 10)
 
-    const createduser = await user.create({
-      userName: userName,
+    const createduser = await users.create({
+      user_name: user_name,
       email: email,
       password: hashPassword,
       userType: userType,
@@ -71,26 +70,23 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const loginUser = await user.findAll({
+    const loginUser = await users.findAll({
       where: {
         email: email,
       }
     });
 
-
     if (loginUser.length === 0) {
-      return res.status(200).json({
-        message: "invalid email",
+      return res.status(401).json({
+        message: "Invalid email",
       });
     }
 
-    // we can compare passwords of user for login with isMatch that return true or false
-    const isAdmin = password === loginUser[0].dataValues.password
     const isMatch = await bcrypt.compare(password, loginUser[0].dataValues.password)
 
-    if (!isMatch && !isAdmin) {
-      return res.status(200).json({
-        message: "invalid password",
+    if (!isMatch) {
+      return res.status(401).json({
+        message: "Invalid password",
       });
     }
 
@@ -100,8 +96,8 @@ const loginUser = async (req, res) => {
       password: password
     }
 
-    const token = jwt.sign(userObject, process.env.SECRET_KEY)
-    res.status(201).json({ message: `user is login`, token: token, userType: userType });
+    const token = jwt.sign(userObject, process.env.SECRET_KEY, { expiresIn: '1440m' })
+    res.status(200).json({ message: `user is login`, token: token, userType: userType });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -111,17 +107,17 @@ const loginUser = async (req, res) => {
 // update user
 const updateUser = async (req, res) => {
   try {
-    const { userName, email, password, userType } = req.body;
+    const { user_name, email, password, userType } = req.body;
     const id = req.params.id;
-    if (!userName || !email || !password || !userType || !id) {
+    if (!user_name || !email || !password || !userType || !id) {
       return res.status(404).json({
-        message: "userName, email, password, id and userType is required",
+        message: "user_name, email, password, id and userType is required",
       });
     }
 
-    const updatedUser = await user.update(
+    const updatedUser = await users.update(
       {
-        userName: userName,
+        user_name: user_name,
         email: email,
         password: password,
         userType: userType,
@@ -146,16 +142,11 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
-
-    if (!id) {
-      return res.status(404).json({ message: "id is must" });
-    }
-
-    const deleteUser = await user.destroy({ where: { id: id } });
+    const deleteUser = await users.destroy({ where: { id: id } });
 
     if (deleteUser === 1) {
       return res
-        .status(201)
+        .status(200)
         .json({ message: `user having id ${id} is deleted` });
     }
     res.status(404).json({ message: `user having id ${id} is not found` });

@@ -1,10 +1,12 @@
 export default (sequelize, Datatypes) => {
-    const User = sequelize.define("user", {
-        userName: {
+    const User = sequelize.define("users", {
+        user_name: {
             type: Datatypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 40,
+                min: 3,
             },
         },
         email: {
@@ -14,6 +16,8 @@ export default (sequelize, Datatypes) => {
             validate: {
                 notEmpty: true,
                 isEmail: true,
+                max: 40,
+                min: 3,
             },
         },
         password: {
@@ -21,6 +25,8 @@ export default (sequelize, Datatypes) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 25,
+                min: 8,
             },
         },
         userType: {
@@ -28,9 +34,15 @@ export default (sequelize, Datatypes) => {
             allowNull: false,
             validate: {
                 notEmpty: true,
+                max: 30,
+                min: 3,
             },
         },
-    });
+    },
+        {
+            timestamps: false,
+        },
+    );
 
     return User;
 };
