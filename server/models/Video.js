@@ -18,9 +18,6 @@ export default (sequelize, Datatypes) => {
             },
         },
     },
-        {
-            timestamps: false,
-        },
     );
 
     // Video.associate = function (models) {

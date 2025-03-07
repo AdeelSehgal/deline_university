@@ -7,13 +7,15 @@ import {
   deleteUser,
   loginUser,
 } from "../controllers/user.js";
+import jwtAutherizationToken from '../middlewares/jwtAutherization.js'
+import userAuthorization from '../middlewares/userAuthorization.js'
 const router = express.Router();
 
 // get all users
-router.get("/", getUsers);
+router.get("/", jwtAutherizationToken, userAuthorization, getUsers);
 
 // get single user
-router.get("/:id", getSingleUser);
+router.get("/:id", jwtAutherizationToken, userAuthorization, getSingleUser);
 
 // create user
 router.post("/", createUser);
@@ -22,9 +24,9 @@ router.post("/", createUser);
 router.post("/login", loginUser);
 
 // update user
-router.put("/:id", updateUser);
+router.put("/:id", jwtAutherizationToken, userAuthorization, updateUser);
 
 // delete user
-router.delete("/:id", deleteUser);
+router.delete("/:id", jwtAutherizationToken, userAuthorization, deleteUser);
 
 export default router;

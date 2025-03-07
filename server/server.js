@@ -27,11 +27,11 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use("/api/course", course);
 app.use("/api/user", user);
-app.use("/api/video", jwtAutherizationToken, userAuthorization, video);
+app.use("/api/video", video);
 
 // database conection with sequelize
 db.sequelize
-  .sync({ force:false})
+  .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
   })

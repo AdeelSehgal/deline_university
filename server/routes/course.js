@@ -1,7 +1,7 @@
 import express from 'express'
+import { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse } from '../controllers/course.js'
 import jwtAutherizationToken from '../middlewares/jwtAutherization.js'
 import userAuthorization from '../middlewares/userAuthorization.js'
-import { getCourses, getSingleCourse, createCourse, updateCourse, deleteCourse } from '../controllers/course.js'
 const router = express.Router()
 
 // get all post

@@ -9,7 +9,7 @@ export default (req, res, next) => {
     // verify our token 
     jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
         if (err) {
-            return res.status(403).json({ message: 'token is not valid' })
+            return res.status(401).json({ message: 'Unauthenticated.' })
         }
         req.user = user // sending data from middleware to another
         next()

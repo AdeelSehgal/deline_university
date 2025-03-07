@@ -39,9 +39,6 @@ export default (sequelize, Datatypes) => {
             },
         },
     },
-        {
-            timestamps: false,
-        },
     );
 
     return User;

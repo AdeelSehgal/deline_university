@@ -35,13 +35,10 @@ export default (sequelize, Datatypes) => {
             },
         },
     },
-        {
-            timestamps: false,
-        },
     );
 
     Course.associate = function (models) {
-        Course.hasMany(models.videos, { foreignKey: { name: 'course_id', allowNull: false } }, { onDelete: 'CASCADE' })
+        Course.hasMany(models.videos, { foreignKey: {name:"course_id", allowNull: false } }, { onDelete: 'CASCADE' })
     };
 
     return Course;
