@@ -37,15 +37,9 @@ const getSingleUser = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { user_name, email, password, userType } = req.body;
-    if (!user_name || !email || !password || !userType) {
-      return res.status(404).json({
-        message: "user_name, email, password and userType is required",
-      });
-    }
 
     // the larget the number the stronger the password but take long time as number increase
     const hashPassword = await bcrypt.hash(password, 10)
-
     const createduser = await users.create({
       user_name: user_name,
       email: email,
@@ -59,17 +53,10 @@ const createUser = async (req, res) => {
 };
 
 
-
 // login user
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(404).json({
-        message: "email and password is required",
-      });
-    }
-
     const loginUser = await users.findAll({
       where: {
         email: email,
@@ -109,11 +96,6 @@ const updateUser = async (req, res) => {
   try {
     const { user_name, email, password, userType } = req.body;
     const id = req.params.id;
-    if (!user_name || !email || !password || !userType || !id) {
-      return res.status(404).json({
-        message: "user_name, email, password, id and userType is required",
-      });
-    }
 
     const updatedUser = await users.update(
       {

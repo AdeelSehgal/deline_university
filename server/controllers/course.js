@@ -33,12 +33,6 @@ const getSingleCourse = async (req, res) => {
 const createCourse = async (req, res) => {
   try {
     const { title, description, image, type } = req.body;
-    if (!title || !description || !image || !type) {
-      return res
-        .status(404)
-        .json({ message: "title, description, image and type is required" });
-    }
-
     const createdCourse = await courses.create({
       title: title,
       description: description,
@@ -56,12 +50,7 @@ const updateCourse = async (req, res) => {
   try {
     const { title, description, image, type } = req.body;
     const id = req.params.id;
-    if (!title || !description || !image || !type || !id) {
-      return res.status(404).json({
-        message: "title, description, image, id and type is required",
-      });
-    }
-
+    
     const updatedCourse = await courses.update(
       { title: title, description: description, image: image, type: type },
       {

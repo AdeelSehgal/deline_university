@@ -5,8 +5,6 @@ import user from "./routes/user.js";
 import video from "./routes/video.js";
 import db from "./models/index.js";
 import cors from "cors";
-import jwtAutherizationToken from './middlewares/jwtAutherization.js'
-import userAuthorization from './middlewares/userAuthorization.js'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8000;

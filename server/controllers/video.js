@@ -53,11 +53,6 @@ const createVideo = async (req, res) => {
 
     console.log(req.body)
     const { title, link, course_id } = req.body;
-    if (!title || !link || !course_id) {
-      return res.status(404).json({
-        message: "title, link and course_id is required",
-      });
-    }
 
     // Sequelize
     const createdvideo = await videos.create({
@@ -67,9 +62,9 @@ const createVideo = async (req, res) => {
     });
 
     // raw query
-    // const createdvideo = await sequelize.query('insert into Videos (title, link,createdAt, updatedAt,CourseId) values (?,?,now(),now(),?)', {
+    // const createdvideo = await sequelize.query('insert into Videos (title, link,createdAt, updatedAt,course_id) values (?,?,now(),now(),?)', {
     //   type: QueryTypes.INSERT,
-    //   replacements: [title, link, parseInt(CourseId)]
+    //   replacements: [title, link, parseInt(course_id)]
     // });
 
     res.status(201).json({ message: `video is created`, createdvideo });
@@ -83,11 +78,6 @@ const updatevideo = async (req, res) => {
   try {
     const { title, link, course_id } = req.body;
     const id = req.params.id;
-    if (!title || !link || !id || !course_id) {
-      return res.status(404).json({
-        message: "title, link ,video id and course_id is required",
-      });
-    }
 
     // Sequelize
     const updatedVideo = await videos.update(
@@ -102,9 +92,9 @@ const updatevideo = async (req, res) => {
     );
 
     // Raw query
-    // const video = await sequelize.query('update Videos set title=?, link=?, CourseId=?, updatedAt=? where id=? ', {
+    // const video = await sequelize.query('update Videos set title=?, link=?, course_id=?, updatedAt=? where id=? ', {
     //   type: QueryTypes.UPDATE,
-    //   replacements: [title, link, parseInt(CourseId), 'now()', id]
+    //   replacements: [title, link, parseInt(course_id), 'now()', id]
     // });
 
     if (updatedVideo == 1) {
@@ -149,11 +139,6 @@ const deleteVideo = async (req, res) => {
 const getCourseVideos = async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-
-    if (!id || id === 0) {
-      return res.status(404).json({ message: "course id is required" });
-    }
-
     const allvideos = await videos.findAll({ where: { course_id: id } });
 
     if (allvideos.length === 0) {
