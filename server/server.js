@@ -31,7 +31,7 @@ app.use("/api/video", video);
 
 // database conection with sequelize
 db.sequelize
-  .sync()
+  .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
   })

@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-const { users } = db;
+const { users, tokens } = db;
 
 
 // get all users
@@ -83,12 +83,65 @@ const loginUser = async (req, res) => {
       password: password
     }
 
-    const token = jwt.sign(userObject, process.env.SECRET_KEY, { expiresIn: '1440m' })
-    res.status(200).json({ message: `user is login`, token: token, userType: userType });
+    const token = generateAccessToken(userObject)
+    const refreshToken = jwt.sign(userObject, process.env.REFRESH_TOKEN_SECRET)
+
+    await tokens.create({
+      refreshToken: refreshToken
+    })
+
+    return res.status(200).json({ message: `user is login`, token: token, userType: userType, refreshToken: refreshToken });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+// this code will geberate access token for us
+const generateAccessToken = (userObject) => {
+  return jwt.sign(userObject, process.env.SECRET_KEY, { expiresIn: '60m' })
+}
+
+// refresh token
+const refreshToken = async (req, res) => {
+  const refreshToken = req.body.refreshToken
+
+  if (refreshToken === null || refreshToken === '') {
+    return res.status(400).json({ message: `refesh token s required`, });
+  }
+
+  const isRefreshToken = await tokens.findOne({ where: { refreshToken: refreshToken } })
+
+  if (!isRefreshToken) {
+    return res.status(403).json({ message: 'Unauthenticated' })
+  }
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: 'Unauthenticated.' })
+    }
+    const token = generateAccessToken({ email: user.email, password: user.password })
+    return res.status(200).json({ message: `user is login`, token: token, });
+  })
+}
+
+
+const logoutUser = async (req, res) => {
+  const refreshToken = req.body.refreshToken
+
+  if (refreshToken === null || refreshToken === '') {
+    return res.status(400).json({ message: `refesh token s required`, });
+  }
+
+  const deleteRefreshToken = await tokens.destroy({ where: { refreshToken: refreshToken } })
+
+  if (deleteRefreshToken === 0) {
+    res.status(404).json({ message: `refresh token is not present` });
+  }
+
+  return res.status(200).json({ message: "user is logout" })
+
+}
 
 
 // update user
@@ -137,4 +190,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { getUsers, getSingleUser, createUser, updateUser, deleteUser, loginUser };
+export { getUsers, getSingleUser, createUser, updateUser, deleteUser, loginUser, refreshToken, logoutUser };
