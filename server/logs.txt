@@ -242,3 +242,4 @@ request time:2025-03-09T19:17:05.786Z. method:GET. url:/api/video. ip:::1.
 request time:2025-03-09T19:17:06.003Z. method:GET. url:/api/video. ip:::1.
 request time:2025-03-09T19:17:36.062Z. method:DELETE. url:/api/user/logout. ip:::1.
 request time:2025-03-09T19:17:55.922Z. method:POST. url:/api/user/refreshToken. ip:::1.
+request time:2025-03-10T11:34:27.323Z. method:GET. url:/api/course. ip:::1.
