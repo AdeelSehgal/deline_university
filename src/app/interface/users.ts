@@ -15,6 +15,11 @@ export interface LoginUser {
 export interface LoginResponse {
     message: string
     token: string
-    userType:string
+    userType: string
 }
+
+export interface LogOutResponse {
+    message: string
+}
+
 

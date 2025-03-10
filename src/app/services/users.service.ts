@@ -19,4 +19,9 @@ export class UsersService {
     loginUser(User: LoginUser): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(`${this.apiUrl}/api/user/login`, User)
     }
+
+    // logout User
+    logoutUser(User: {}): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(`${this.apiUrl}/api/user/logout`, User)
+    }
 }
