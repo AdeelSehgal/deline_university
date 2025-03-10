@@ -1,6 +1,7 @@
 import db from "../models/index.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import client from '../helper/init_redis.js'
 const { users, tokens } = db;
 
 
@@ -99,7 +100,7 @@ const loginUser = async (req, res) => {
 
 // this code will geberate access token for us
 const generateAccessToken = (userObject) => {
-  return jwt.sign(userObject, process.env.SECRET_KEY, { expiresIn: '60m' })
+  return jwt.sign(userObject, process.env.SECRET_KEY, { expiresIn: '5m' })
 }
 
 // refresh token
@@ -125,23 +126,38 @@ const refreshToken = async (req, res) => {
   })
 }
 
+// logout wit refresh token
+// const logoutUser = async (req, res) => {
+//   const refreshToken = req.body.refreshToken
 
+//   if (refreshToken === null || refreshToken === '') {
+//     return res.status(400).json({ message: `refesh token s required`, });
+//   }
+
+//   const deleteRefreshToken = await tokens.destroy({ where: { refreshToken: refreshToken } })
+
+//   if (deleteRefreshToken === 0) {
+//     res.status(404).json({ message: `refresh token is not present` });
+//   }
+
+//   return res.status(200).json({ message: "user is logout" })
+// }
+
+
+
+// logout with redis blacklist
 const logoutUser = async (req, res) => {
-  const refreshToken = req.body.refreshToken
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  const set = await client.setex(token, '300', 'blackList')
+  console.log('aaaa', set)
 
-  if (refreshToken === null || refreshToken === '') {
-    return res.status(400).json({ message: `refesh token s required`, });
+  if (set !== 'OK') {
+    return res.status(403).json({ message: "enable to logout" })
   }
-
-  const deleteRefreshToken = await tokens.destroy({ where: { refreshToken: refreshToken } })
-
-  if (deleteRefreshToken === 0) {
-    res.status(404).json({ message: `refresh token is not present` });
-  }
-
   return res.status(200).json({ message: "user is logout" })
-
 }
+
 
 
 // update user

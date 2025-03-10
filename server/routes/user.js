@@ -33,7 +33,7 @@ router.post("/refreshToken",  refreshToken);
 router.put("/:id", userResgisterValidation, inputValidation, jwtAutherizationToken, userAuthorization, updateUser);
 
 // logout user
-router.delete("/logout", logoutUser);
+router.post("/logout", logoutUser);
 
 // delete user
 router.delete("/:id", jwtAutherizationToken, userAuthorization, deleteUser);
